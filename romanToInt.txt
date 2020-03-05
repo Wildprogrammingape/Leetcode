@@ -1,0 +1,17 @@
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        
+        dictionary={"I":1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000}
+        
+        reverse=0
+        previous=0
+        
+        for item in s[::-1]:                 # "VII"  "IV"
+            if dictionary[item] >= previous:
+                reverse = reverse + dictionary[item]    
+            else:
+                reverse = reverse - dictionary[item]
+                
+            previous = dictionary[item]
+        
+        return reverse
