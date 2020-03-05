@@ -1,0 +1,21 @@
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        prefix=""
+        
+        
+        if strs==[]:         # except len(strs)==0
+            return ""  
+        
+        strs = sorted(strs)
+        i=0
+        
+        for j in range(0,len(strs[0])):    # Note "strs[0]" may be out of range if strs=[]
+            for i in range(0,len(strs)-1): # Note: for loop may not be executed, i should be valued                                                                                                    before
+                if strs[i][j]==strs[i+1][j]:
+                    continue
+                else:  
+                    return prefix
+                
+            prefix += strs[i][j]
+         
+        return prefix
