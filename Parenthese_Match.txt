@@ -1,0 +1,22 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        if s=="":
+            return True
+        
+        opened  = ['(' , '{' , '[']
+        closed  = [')' , '}' , ']']
+        
+        mystack = []                 #  ({})       ({)}    ){}
+          
+        for item in s:
+            if item in opened:
+                mystack.append(item)
+            elif item in closed:
+                if mystack!=[] and mystack[-1] == opened[closed.index(item)]:  
+                    mystack.pop()     #List.pop()  == List.pop(-1)
+                else:           # ), }, ]  is the first character
+                    return False         
+            else:
+                return False    # input s is not a string only including parentheses
+        
+        return len(mystack)==0
