@@ -1,0 +1,36 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        
+        head = ListNode(0)     # create a head node with value 0
+        ptr = head    # with ptr pointing to the head (bottom pointer)
+        
+        while True:
+            if l1 == None and l2 == None:
+                break                        # enmpty Nodelist l1 and l2
+            elif l1 == None and l2 != None:
+                ptr.next = l2
+                break                        # empty Nodelist l1, ptr.next points to l2 (right pointer)
+            elif l1 != None and l2 == None:
+                ptr.next = l1
+                break                        # empty Nodelist l2, ptr.next points to l1 (right pointer)
+            else:
+                smallerValue = 0
+                if l1.val <= l2.val:
+                    smallerValue = l1.val     # then create a New node in the following
+                    l1 = l1.next              # *** move the pointer of l1 forward  
+                else:
+                    smallerValue = l2.val
+                    l2 = l2.next              # *** move the pointer of l2 forward
+                    
+            newNode = ListNode (smallerValue) # create the new node, no pointer pointing to it, and                                                                         not pointing to other node
+            ptr.next = newNode                # pointing to this new node (right pointer)
+            
+            ptr = ptr.next                    # pointer move forward (bottom pointer)
+            
+        return head.next                      # Null when l1 == None and l2 == None                                                                    head.next = l1 when l2 is None                                                                          head.next = l2 when l1 is None                                                                          head.next = newNode, and go through the while loop again
