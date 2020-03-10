@@ -1,0 +1,11 @@
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        
+        j = 1  # count the index of the new replaced list (from list[1])
+        
+        for i in range(0,len(nums)-1):
+            if nums[i] != nums[i+1]:
+                nums[j] = nums[i+1]    # from the second item, nums[j] = nums[i+1] if two items different
+                j +=1
+                
+        return j                       # length of immutable item in the new placed list 
