@@ -1,0 +1,23 @@
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        
+        # 201/202 test cases passed. -- Time limit exceeded
+        maxsum = nums[-1]
+        
+        for i in range(0,len(nums)-1):     # did't go through last single number
+            
+            if nums[i] > maxsum:
+                maxsum = nums[i]
+                
+            tempsum = nums[i]
+            
+            for j in range(i+1,len(nums)):  
+                
+                tempsum = tempsum + nums[j]
+                
+                if tempsum > maxsum:
+                    maxsum = tempsum
+              
+        #if nums[-1] > maxsum:
+           # maxsum = nums[-1]
+        return maxsum      
