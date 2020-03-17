@@ -1,0 +1,31 @@
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:
+        #  string.split() :
+        #  Split a string into a list where each word is a list item
+        
+        newlist = s.split()
+        if  newlist == []:    #  s only includes _____   or is NONE
+            return 0
+        else:
+            return len(newlist[-1])
+        
+        
+        '''
+        count = 0                 # string_string  string1_string2_   _string
+        if s=='':
+            return 0
+        templist = [1]     
+        if s[-1] == ' ':
+            templist = [1,2]
+        
+        for item in s[::-1]:
+            if templist == []:
+                break        
+            else:    
+                if item != ' ':
+                    count += 1
+                elif item == ' ':
+                    templist.pop(-1)
+        return count                      # False in  'b    a      '   multi-space cases
+        '''
+      
