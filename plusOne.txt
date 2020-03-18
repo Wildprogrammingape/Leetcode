@@ -1,0 +1,16 @@
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        # 129 -- 130
+        tempstring = ''
+        for item in digits:
+            tempstring = tempstring + str(item)          # '129'
+        
+        tempint = int(tempstring) + 1         # 130
+        
+        reverse = str(tempint)              # '130'
+        revlist = []
+        
+        for i in range(0,len(reverse)):
+            revlist.append(int(reverse[i]))   # [1,3,0]
+            
+        return revlist
