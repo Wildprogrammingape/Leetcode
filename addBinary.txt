@@ -1,0 +1,6 @@
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        c = int(a,2) + int(b,2)     # (a+b) of base 10 -- decimal integer
+        c = bin(c)[2:]              # reverse to base 2 -- binary string
+        
+        return c
