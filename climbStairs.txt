@@ -1,0 +1,11 @@
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        result = [1,2]
+        for i in range(0,n):
+            result.append(result[i] + result[i+1]) 
+        return result[n-1]
+    
+# Typical Fibonacci number
+# [1,2,3,5,8,13,21,34....]
+
+# [1,2,3,4,5,6 ,7 ,8]   
