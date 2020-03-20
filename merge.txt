@@ -1,0 +1,29 @@
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        # nums1=[1,2,3,0,5,6]
+        # nums1=[1,2,0,3,5,6]
+        # nums1=[1,0,2,3,5,6]
+        # nums1=[1,2,2,3,5,6]
+        
+        while m > 0 and n > 0:
+            if nums2[n-1] > nums1[m-1]:    # compare solid index [m-1] and [n-1]
+                nums1[m+n-1] = nums2[n-1]
+                n = n - 1
+            else:
+                nums1[m-1] , nums1[m+n-1] = nums1[m+n-1] , nums1[m-1]  # swap this two 
+                m = m - 1
+                
+        if m == 0 and n > 0:      # there's still some numbers not iterated on nums2
+            nums1[:n] = nums2[:n]
+                
+                
+                
+                
+            # if m > n ,  Doesn't matter since the nums1 is initially sorted.
+            # e.g :  n=0 so the loop is done, but the iteration of num1 is to number '2',                        but the numbers above must be smaller than numbers after
+            
+            # if n > m , e.g : m=0 so the loop is done, but the iteration of nums2 is to                      number '5', at that time nums1 is like nums1 = [0,0,0,...,2,3,5,6] (0 going                  above with the iteration going on). Thus, we need to append the numbers                      above to nums1.
+                
