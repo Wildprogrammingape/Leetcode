@@ -1,0 +1,22 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def minDepth(self, root: TreeNode) -> int:
+        if root == None:   # one of the child is None: (min(0,1) + 1 = 1)--depth should be 2
+            return 0
+        if root.left == None or root.right == None:
+            return max(self.minDepth(root.left),self.minDepth(root.right)) + 1
+          
+        return min(self.minDepth(root.left),self.minDepth(root.right)) + 1
+        
+        # return min(1,1)+1 = 2    Right
+        # return min(1,2)+1 = 3    Right
+        # return min(1,3)+1 = 4    Right
+# However return min(0,1)+1 = 1    Wrong , Binary tree is [1,2,Null]
+# So we need to return max(self.minDepth(root.left),self.minDepth(root.right)) + 1
+# to deal with the case where one of the children is NONE, since at this time the depth doesn't matter with the None node.
