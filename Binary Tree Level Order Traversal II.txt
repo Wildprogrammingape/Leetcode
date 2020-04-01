@@ -1,0 +1,29 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        # BFS
+        if root is None:
+            return []
+        
+        current_list = []       # list consisting of nodes
+        result = []
+        current_list.append(root)   
+        
+        while len(current_list) > 0:
+            result.append([item.val for item in current_list])
+            next_level_list = []
+            for node in current_list:
+                if node.left is not None:
+                    next_level_list.append(node.left)
+                if node.right is not None:
+                    next_level_list.append(node.right)
+            current_list = next_level_list
+        
+        result = result[::-1]      # both list and string can implement slicing
+        return result
