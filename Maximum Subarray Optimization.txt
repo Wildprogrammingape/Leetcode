@@ -1,0 +1,54 @@
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        
+        if max(nums) < 0:
+            return max(nums)
+        
+        mylist = []
+        local_max = 0
+        
+        for num in nums:
+            local_max = max(0, local_max + num)
+            mylist.append(local_max)
+            
+        return max(mylist)
+    
+        # the local_max is continuously changing when the benefit is larger than 0, since is wishes more benefit in the following number. So the local_max can find the maximum subarray, but may not be the number in the final. Thus, it's good to append all temp value in a list, or just compare it with another global_max, and keep setting the global_max.
+        
+        '''
+        # Solution 1
+        if max(nums) < 0:
+            return max(nums)
+        
+        # go through the list with a local_max
+        local_max , global_max = 0 , 0
+        for num in nums:
+            local_max = max(0, local_max + num)  # has benefit Or set as 0
+            if local_max > global_max:
+                global_max = local_max
+                
+        return global_max
+        '''
+        
+        '''
+        # 201/202 test cases passed. -- Time limit exceeded
+        maxsum = nums[-1]
+        
+        for i in range(0,len(nums)-1):     # did't go through last single number
+            
+            if nums[i] > maxsum:
+                maxsum = nums[i]
+                
+            tempsum = nums[i]
+            
+            for j in range(i+1,len(nums)):  
+                
+                tempsum = tempsum + nums[j]
+                
+                if tempsum > maxsum:
+                    maxsum = tempsum
+              
+        #if nums[-1] > maxsum:
+           # maxsum = nums[-1]
+        return maxsum   
+        '''
