@@ -1,0 +1,30 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+class Solution:
+     def levelOrder(self, root: 'Node') -> List[List[int]]:
+        # BFS variant
+        
+        if root is None:
+            return []
+        
+        current = []
+        result = []
+        current.append(root)
+        
+        while len(current) > 0:
+            result.append([item.val for item in current])   
+            next_level = []
+            
+            for node in current:       #** Note here how to append node.children**
+                for n in node.children:  # double for loop to go through children
+                    next_level.append(n) 
+            
+            current = next_level
+        
+        return result
