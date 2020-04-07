@@ -1,0 +1,23 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+class Solution:
+    def preorder(self, root: 'Node') -> List[int]:
+        # DFS (traditional)
+        return self.preorder_traversal(root,[])    
+        
+        
+        
+    def preorder_traversal(self,start,traversal):
+        if start is not None:
+            traversal += [start.val]
+            for node in start.children:
+                traversal = self.preorder_traversal(node,traversal)
+                
+        return traversal
+        
