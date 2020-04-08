@@ -1,0 +1,40 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def deepestLeavesSum(self, root: TreeNode) -> int:
+        # BFS level order traversal to find the deepest leaves
+        if root is None:
+            return 0
+        
+        # result = [.....[7,8]]
+        deepest_result = self.find_deepest(root)[-1]
+        deepest_sum = 0
+        for num in deepest_result:
+            deepest_sum += num
+        return deepest_sum
+    
+    
+    def find_deepest(self,start):
+        if start is None:
+            return []
+        
+        current = [start]
+        result = []
+        
+        while current:   # equal to "len(current) >0 "
+            result.append([item.val for item in current])
+            nex = []
+            for node in current:
+                if node.left:
+                    nex.append(node.left)
+                if node.right:
+                    nex.append(node.right)
+            current = nex
+        
+        return result
+            
