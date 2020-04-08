@@ -1,0 +1,26 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children
+"""
+
+class Solution:
+    def postorder(self, root: 'Node') -> List[int]:
+        # DFS 
+        # Left - Right - ROOT
+        if root is None:
+            return []
+        
+        return (self.postorder_traversal(root,[]) + [root.val]) # consider: root == None
+        
+    
+    def postorder_traversal(self,start,traversal):
+        if start:               # is not None
+            for node in start.children:    
+                traversal = self.postorder_traversal(node,traversal)
+                traversal += [node.val]
+                
+        return  traversal         
+            # recur the function itself and find the left corner and append(5), then the right (6), then run the second program(3), then (2), then (4) , but the start is not here.
