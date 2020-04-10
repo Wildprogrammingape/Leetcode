@@ -1,0 +1,46 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+     
+        result = []
+        
+        def findpath(root, current_list, current_sum):
+            if root is None:
+                return    # return Nothing
+            if root.val + current_sum == sum and root.left == None and root.right == None:
+                result.append(current_list + [root.val])
+            
+            findpath(root.left, current_list + [root.val], current_sum + root.val )
+            findpath(root.right, current_list + [root.val], current_sum + root.val )
+        
+        
+        findpath(root, [], 0)
+        
+        return result
+    
+    
+    
+    
+    
+        ''' # object-oriented , NOT GOOD
+        final_result = []
+        self.findpath(root, [], 0, final_result)
+    
+        return final_result
+    
+    def findpath(self, root, current_list, current_sum ,result):
+        if root is None:
+            return    # return Nothing
+        if root.val + current_sum == sum and root.left == None and root.right == None:
+            result.append(current_list + [root.val])
+            
+        self.findpath(root.left, current_list + [root.val], current_sum + root.val, result)
+        self.findpath(root.right, current_list + [root.val], current_sum + root.val,result)
+        
+        '''
