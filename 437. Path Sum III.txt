@@ -1,0 +1,53 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    # Double recurrsion
+    
+    def pathSum(self, root: TreeNode, sum: int) -> int:
+        
+        def findpath(root,current_sum):# define a function: based on the root node, find all possible paths and store in 'result'.
+            if root is None:
+                return 0
+            
+            if root.val == current_sum:
+                result = 1
+            else:
+                result = 0 
+        
+            result += findpath(root.left, current_sum - root.val)
+            result += findpath(root.right, current_sum - root.val)
+            
+            return result
+        
+        if root is None:
+            return 0
+        
+        return findpath(root,sum) + self.pathSum(root.left,sum) + self.pathSum(root.right,sum)
+    # double recurrsion. Recur findpath function: to find all possible paths based on the current root node.  Recur pathSum itself : to change the current rootnode
+    
+            
+            
+            
+        
+        
+        
+        '''
+        if root is None:
+            return 0
+        return self.findpath(root, sum) + self.pathSum(root.left, sum) + self.pathSum(root.right, sum)
+        
+        
+    def findpath(self, root, current_sum):
+        if root is None:
+            return 0
+        
+        if root.val == current_sum:
+            return 1 # NOTE: shouldn't return 1, because the recursion is finished even thouth there are still possible paths in the following!
+        
+        return self.findpath(root.left, current_sum - root.val)+ self.findpath(root.right, current_sum - root.val)
+        '''
