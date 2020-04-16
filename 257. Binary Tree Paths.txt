@@ -1,0 +1,25 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        # Very sililar to Leetcode 113 !
+        # write in a function and return the result, the function doesn't need to return anything just for recur the whole trees to get the result.
+        
+        result = []
+        
+        def findpath(root,current_string):
+            if not root:
+                return 
+            if root.left == None and root.right == None:
+                result.append(current_string + str(root.val))
+            
+            findpath(root.left, current_string + str(root.val)+'->')
+            findpath(root.right,current_string + str(root.val)+'->')
+        
+        findpath(root,'')
+        return result
