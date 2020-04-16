@@ -1,0 +1,41 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def sumNumbers(self, root: TreeNode) -> int:
+
+        return self.prefixsum(root,0)
+        
+    def prefixsum(self,root,prefix):
+        if not root:
+            return 0
+        
+        if root.left == None and root.right == None:
+            return 10*prefix + root.val
+        
+        return self.prefixsum(root.left, 10*prefix + root.val) + self.prefixsum(root.right, 10*prefix + root.val)
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        # The split() method breaks up a string at the specified separator and returns a list of strings.   s='try your best'   s.split() = ['try','your','best']  --  split at space
+        # ['495','491','40']
+        '''
+        if root is None:
+            s+= ' '
+            
+        s+= str(root.val)  # stuck here
+        '''
+            
