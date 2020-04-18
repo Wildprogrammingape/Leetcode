@@ -1,0 +1,78 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        # DFS - preorder traversal (root-left-right)
+        
+        # *** Similar to Leetcode 102, if we say n = stack.pop(0), then it's level order traversal (BFS)***
+        
+        stack = [root]
+        result = []
+        
+        while stack:                     # len(stack) > 0
+            n = stack.pop()              # .pop(-1)
+            
+            if n is None:
+                result.append('None')
+            else: 
+                result.append(str(n.val))
+        
+                stack.append(n.right)        # new children is appended to result first
+                stack.append(n.left)
+        
+        return result
+    
+        # print (result)
+        # stdout: ['1', '2', 'None', 'None', '3', '4', 'None', 'None', '5', 'None', 'None']
+                
+        
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        
+        """
+        for i in range(0,len(data)):      # Not necessary
+            if data[i] == 'None':
+                data[i] = None
+        """        
+        
+        # ['1', '2', None, None, '3', '4', None, None, '5', None, None]
+        
+        def helper(data):
+            
+            n = data.pop(0)
+            
+            if n == 'None':
+                return None
+            else:
+                new_node = TreeNode(int(n))
+                new_node.left = helper(data)  # recurrsion create tree and add
+                new_node.right = helper(data)
+                
+            return new_node                  
+        
+        
+        return helper(data)
+                
+            
+            
+        
+
+# Your Codec object will be instantiated and called as such:
+# codec = Codec()
+# codec.deserialize(codec.serialize(root))
