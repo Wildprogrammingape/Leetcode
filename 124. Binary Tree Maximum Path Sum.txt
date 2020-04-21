@@ -1,0 +1,34 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    
+    def maxPathSum(self, root: TreeNode) -> int:
+        
+        self.result = -inf   # root.val or negative ifinity: -inf (任一结点的值都阔以)
+        self.dfs(root)
+        return self.result
+        
+    def dfs(self, root):
+        if not root:
+            return 0
+        
+        left = max(self.dfs(root.left), 0) 
+        right = max(self.dfs(root.right), 0)
+        
+        # if the left or right is negative, it doesn't have contribution, so left = max(X,0)
+        # e.g: [2,-1] 最底层的-1 return上去的值是-1，作为2结点的left，此时应该 ignore
+        
+        self.result = max(self.result, left + right + root.val)
+        
+        # change the Global result with traversal, we go through all the vertex and find the max path sum.  遍历所有的顶点，随之更新全局变量result得到最终结果
+        
+        return root.val + max(left, right)
+    
+    
+        # find the max(leftchild,rightchild) + root.val 找到当前结点的直上直下最大path sum
+        
