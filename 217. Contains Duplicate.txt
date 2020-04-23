@@ -1,0 +1,32 @@
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+           
+        #Solution1: Use Set
+       
+        if not nums:
+            return False
+        if len(nums) != len(set(nums)):
+            return True
+        return False
+    
+        # Method 1 -- Apply hashtable O(n)
+        # hashNum = {}
+        # for i in nums:
+        #     if i not in hashNum:
+        #         hashNum[i] = 1
+        #     else:
+        #         return True
+        # return False
+       
+        
+#    \\Time exceeded
+
+#         if nums == []:
+#             return False
+        
+#         for i in range(0,len(nums)-1):
+#             for j in range(i+1,len(nums)):
+#                 if nums[i] == nums[j]:
+#                     return True
+                
+#         return False
