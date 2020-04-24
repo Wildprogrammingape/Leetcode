@@ -1,0 +1,11 @@
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+
+        # anagram: a word, phrase, or name formed by rearranging the letters of another, such as cinema , formed from iceman.
+        
+        # String-sorted based on ASCII translations  
+        # x = "python"
+        # print (sorted(x))
+        # ['h', 'n', 'o', 'p', 't', 'y']    -- list
+        
+        return sorted(s) == sorted(t)
