@@ -1,0 +1,61 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        # triplet:one of three children or animals born at the same birth.
+        
+        # edge case
+        if not nums:
+            return []
+        
+        length = len(nums)
+        nums.sort()          #  [-4,-1,-1,0,1,2]
+        result = []
+        
+        for i in range(0, length-2):
+            if nums[i] + nums[length-1] + nums[length-2] <0:   # array too small, iterate to next
+                continue
+            if i>0 and nums[i] == nums[i-1]:                   # aovid i for duplicate
+                continue
+            if nums[i] + nums[i+1] + nums[i+2] >0:             # too large for whole array
+                break         
+            
+            left = i+1
+            right = length-1
+            # loop from both left and right side to the middle
+            while (left < right):
+                temp = nums[i] + nums[left] + nums[right]
+                if temp == 0:
+                    result.append([nums[i],nums[left],nums[right]])
+                    # avoid duplicate for left and right
+                    while (left + 1 < right and nums[left] == nums[left+1]):
+                        left +=1
+                    while (left + 1< right and nums[right] == nums[right-1]):
+                        right -=1
+                        
+                    left +=1    
+                    right -=1
+                    
+                elif temp > 0:
+                    right -=1
+                else:
+                    left +=1
+        return result
+    
+        # Solution 1 (accepted, 311 / 313 test cases passed.   ---- Time Limit Exceeded)    
+        # ignore the duplicates and deal with it in the final
+        
+#         if len(result) <= 1:
+#             return result
+
+#         res = []
+#         for i in result:
+#             if  i not in res:
+#                 res.append(i)
+#         return res
+
+# First try without avoid duplicates    
+# Your input
+# [-1,0,1,2,-1,-4]
+# Output
+# [[-1,-1,2],[-1,0,1],[-1,0,1]]
+# Expected
+# [[-1,-1,2],[-1,0,1]]
