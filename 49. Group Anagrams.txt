@@ -1,0 +1,66 @@
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        # use dictionary similar to { 1:["ate","eat","tea"], 2:[ ["nat","tan"]], 3:["bat"]}
+        
+        # edge case
+        # if not strs:
+        #     return []
+        
+        dic = {}
+        for i in range(0,len(strs)):
+            s = strs[i]
+            sorted_key = ''.join(sorted(s))      # sort current string
+            if sorted_key in dic:
+                dic[sorted_key].append(s)   # append current string into key
+            else:
+                dic[sorted_key] = [s]       # add new key:value
+               
+        return dic.values()               # ignore the key and only need to return values
+  
+# Note:
+# print(dic.keys()) 
+# dict_keys(['aet', 'ant', 'abt'])
+
+# print(dic)
+# {'aet': ['eat', 'tea', 'ate'], 'ant': ['tan', 'nat'], 'abt': ['bat']}
+
+
+# strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+# dic = {}
+# s = strs[0]
+# sorted_key = sorted(s)
+# j = "".join(sorted_key)
+# print (s)
+# print(sorted_key)
+# print(j)   
+    
+# Output: 
+    
+# eat                                                                                
+# ['a', 'e', 't']                                                                  
+# aet
+
+
+# Example 1        
+# a_dict = {}
+# if "a" in a_dict:
+#   a_dict["a"].append("hello")
+# else:
+#   a_dict["a"] = ["hello"]  ** must use [] as a list if you want to add element later on 
+# print(a_dict)
+# OUTPUT
+# {'a': ['hello']}
+
+# if "a" in a_dict:
+#   a_dict["a"].append("kite")
+# print(a_dict)
+# OUTPUT
+# {'a': ['hello', 'kite']}
+        
+        
+        
+# Example 2       
+# dic = {"Long":"apple", 2:"orange"}
+# >>"Long" in dic
+# >>True
+    
