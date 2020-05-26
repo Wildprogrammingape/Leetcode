@@ -1,29 +1,35 @@
-class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        """
-        Do not return anything, modify nums1 in-place instead.
-        """
-        # nums1=[1,2,3,0,5,6]
-        # nums1=[1,2,0,3,5,6]
-        # nums1=[1,0,2,3,5,6]
-        # nums1=[1,2,2,3,5,6]
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
         
-        while m > 0 and n > 0:
-            if nums2[n-1] > nums1[m-1]:    # compare solid index [m-1] and [n-1]
-                nums1[m+n-1] = nums2[n-1]
-                n = n - 1
-            else:
-                nums1[m-1] , nums1[m+n-1] = nums1[m+n-1] , nums1[m-1]  # swap this two 
-                m = m - 1
-                
-        if m == 0 and n > 0:      # there's still some numbers not iterated on nums2
-            nums1[:n] = nums2[:n]
-                
-                
-                
-                
-            # if m > n ,  Doesn't matter since the nums1 is initially sorted.
-            # e.g :  n=0 so the loop is done, but the iteration of num1 is to number '2',                        but the numbers above must be smaller than numbers after
-            
-            # if n > m , e.g : m=0 so the loop is done, but the iteration of nums2 is to                      number '5', at that time nums1 is like nums1 = [0,0,0,...,2,3,5,6] (0 going                  above with the iteration going on). Thus, we need to append the numbers                      above to nums1.
-                
+        // Use 3 pointers: first points to the end of solid number in nums1 (m), second points to the end of nums2 (n), third points to current position of nums1 (index)
+        
+        m--;
+        n--;
+        int index = nums1.length - 1;     //    or: m+n-1
+     
+        // write a while loop to traverse num1 from the end
+        while (index >= 0){
+            if (m < 0){
+                nums1[index] = nums2[n--];
+            }
+            else if (n < 0){
+                nums1[index] = nums1[m--];
+            }
+            else{
+                if (nums1[m] > nums2[n]){
+                    nums1[index] = nums1[m--];
+                }
+                else{
+                    nums1[index] = nums2[n--];
+                }
+            }
+            index--;
+        }
+    }
+}
+
+
+//         Input:  nums1 = [1,2,3,0,0,0], m = 3
+//                 nums2 = [2,5,6],       n = 3
+
+//         Output: [1,2,2,3,5,6]
