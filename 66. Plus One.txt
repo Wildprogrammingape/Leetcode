@@ -1,16 +1,26 @@
-class Solution:
-    def plusOne(self, digits: List[int]) -> List[int]:
-        # 129 -- 130
-        tempstring = ''
-        for item in digits:
-            tempstring = tempstring + str(item)          # '129'
+class Solution {
+    public int[] plusOne(int[] digits) {
         
-        tempint = int(tempstring) + 1         # 130
-        
-        reverse = str(tempint)              # '130'
-        revlist = []
-        
-        for i in range(0,len(reverse)):
-            revlist.append(int(reverse[i]))   # [1,3,0]
+        int length = digits.length;
+        for (int i=length-1; i>=0; i--){
+            if (digits[i] < 9){
+                digits[i] +=1;
+                return digits;
+            }
             
-        return revlist
+            digits[i] = 0;
+        }
+        
+        // array length needs to extend 
+        int[] new_array = new int[length+1];
+        new_array[0] = 1;  // other digits was set to 0 by default
+        return new_array;
+    }
+}
+
+
+// [1,2,8] -- [1,2,9]
+// [1,2,9] -- [1,3,0]
+// [8,9,9] -- [9,0,0]
+
+// [9,9,9] -- [1,0,0,0]   new array length needs +1
