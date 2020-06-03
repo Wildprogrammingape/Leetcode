@@ -1,0 +1,23 @@
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int sum = 0;  // sum of nums
+        for (int i : nums){ 
+            sum +=i;
+        }
+        
+        int leftsum  = 0;   // to left sum
+        int rightsum = sum; // to right sum
+        for (int i=0; i<nums.length; i++){
+            
+            rightsum -= nums[i];
+            if (leftsum == rightsum) return i;
+            
+            leftsum += nums[i];
+        }   
+        
+        return -1; // no found result
+    }
+}
+
+//Input:
+//[-1,-1,-1,0,1,1]
