@@ -1,0 +1,33 @@
+class Solution {
+    public int[] findDiagonalOrder(int[][] matrix) {
+        // matrix is null
+        if (matrix.length == 0) return new int[0];  // return matrix sized 0
+    
+        int m = matrix.length;      // row
+        int n = matrix[0].length;   //column
+        
+        int[] output = new int[m*n];  // our result sized m * n
+        
+        int row = 0, col = 0;  // current row, column and index position for loop to use
+        
+        for (int i = 0; i < m*n; i++){  // i is the current index 
+            
+            output[i] = matrix[row][col]; // give the current value to output
+            
+            if ( (row + col) %2 == 0) { // even diagnal goes upper right  (every diagnal m+n is constant)
+                // determine the turns at upper right, so row++ should be before column++
+                if (col == n-1)         row++; // last column 
+                else if (row == 0)      col++;  // first row but not last column
+                else                    {row--;col++;}  // others
+            }
+            else{ // odd diagnal goes down left
+                //same pattern as above
+                if (row == m-1)         col++; // last row 
+                else if (col == 0)      row++; // first column but not last row
+                else                    {row++;col--;} // others
+            }
+        }
+        
+        return output;  
+    }
+}
