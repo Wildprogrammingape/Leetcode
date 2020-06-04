@@ -1,0 +1,31 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        // create a nested list as result
+        List<List<Integer>> result = new ArrayList<>();
+        
+        //corner case
+        if (numRows == 0)  return result;
+        
+        // add first row
+        List<Integer> firstRow = new ArrayList<>();
+        firstRow.add(1);   //[1]
+        result.add(firstRow); // [ [1] ]
+        
+        for (int i = 1; i<numRows; i++){  // build the List from second row
+            
+            List<Integer> preRow = result.get(i-1); // previous row
+            List<Integer> curRow = new ArrayList<>(); // current row 
+            curRow.add(1);  // first element
+            
+            for (int j = 1; j<i; j++){ // add the middle element 
+                curRow.add(preRow.get(j-1) + preRow.get(j));
+            }
+            
+            curRow.add(1);  //final element for current row
+            
+            result.add(curRow);  // finish the whole current row, and add it to result
+        }
+        
+        return result;    
+    }
+}

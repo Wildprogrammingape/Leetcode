@@ -1,0 +1,44 @@
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        // create an arraylist as result
+        List<Integer> result = new ArrayList<Integer>();
+        
+        // corner case
+        if (matrix.length == 0) return result;
+        
+        // define existing row and column
+        int rowBegin = 0;
+        int rowEnd = matrix.length-1;
+        int columnBegin = 0;
+        int columnEnd = matrix[0].length-1;
+        
+        while (rowBegin<=rowEnd && columnBegin<=columnEnd){
+            for (int i = columnBegin; i<=columnEnd; i++){    //first row
+                result.add(matrix[rowBegin][i]);
+            }
+            
+            rowBegin++;           // remove traversed first row
+            
+            for (int i = rowBegin; i<=rowEnd; i++){ // last column
+                result.add(matrix[i][columnEnd]);
+            }
+            
+            columnEnd--;         // remove traversed last column
+            
+            if (rowBegin<=rowEnd){ // determine if there is exsiting row
+                for (int i = columnEnd; i>=columnBegin; i--){
+                    result.add(matrix[rowEnd][i]);
+                }  
+                rowEnd--;
+            }
+        
+            if (columnBegin<=columnEnd){ // determine if there is exsiting column
+                for (int i = rowEnd; i>=rowBegin; i--){
+                    result.add(matrix[i][columnBegin]);
+                }
+                columnBegin++;
+            }
+        }
+        return result;
+    }
+}

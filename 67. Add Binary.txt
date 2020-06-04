@@ -1,6 +1,28 @@
-class Solution:
-    def addBinary(self, a: str, b: str) -> str:
-        c = int(a,2) + int(b,2)     # (a+b) of base 10 -- decimal integer
-        c = bin(c)[2:]              # reverse to base 2 -- binary string
+class Solution {
+    public String addBinary(String a, String b) {
+        // character subtraction : 10+'B'-'A' = 11 as B ASCII value is 66 and A ASCII value is 65
         
-        return c
+        // use string builder to store the result
+        StringBuilder sb = new StringBuilder();
+        
+        // traverse stirng a and b from the back, and calculate the carry byte
+        int i = a.length() - 1;   // current index of a
+        int j = b.length() - 1;   // current index of b
+        int carry = 0;
+        
+        while (i >=0 || j >=0){
+            int sum = carry; // if there is a carry from last addtion, add it to sum
+            if (i>=0) sum += a.charAt(i--) - '0';   // calculate the ASCII value of subtraction 
+            
+            if (j>=0) sum += b.charAt(j--) - '0';   // e.g sum == 0 if last character '0' - '0'
+            
+            sb.append(sum % 2);    // (0 % 2 = 0), (1 % 2 = 1), (2 % 2 = 0)
+            carry = sum / 2;       // only 2 / 2 = 1 can get a carry 
+        }
+        
+        if (carry == 1) sb.append(1);   // append last carry byte
+        
+        return sb.reverse().toString();  // reverse the whole string builder and convert to String
+        
+    }
+}
