@@ -1,21 +1,57 @@
-class Solution:
-    def longestCommonPrefix(self, strs: List[str]) -> str:
-        prefix=""
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        // subtract character solution:
+        // take the first string as prefix, loop from the second string, if strs[i].indexOf(prefix) != 0, then subtract the length of prefix by one
+        
+        if (strs.length == 0) return "";
+        
+        String prefix = strs[0];
+        
+        for (int i=1; i<strs.length; i++){
+            while (strs[i].indexOf(prefix) !=0){
+                prefix = prefix.substring(0, prefix.length()-1);  // upgrade the prefix by subtracting 1
+            }
+        }
+        
+        return prefix;       
+        
+//  prefix = "flower"   -- "flowe" -- "flow"
+//  ["flow","flight"]         
         
         
-        if strs==[]:         # except len(strs)==0
-            return ""  
         
-        strs = sorted(strs)
-        i=0
         
-        for j in range(0,len(strs[0])):    # Note "strs[0]" may be out of range if strs=[]
-            for i in range(0,len(strs)-1): # Note: for loop may not be executed, i should be valued                                                                                                    before
-                if strs[i][j]==strs[i+1][j]:
-                    continue
-                else:  
-                    return prefix
-                
-            prefix += strs[i][j]
-         
-        return prefix
+        
+        
+        
+        
+        
+        
+   
+//         // Solution one , brute force (O(n*n))   failed
+//         // but I dont know how to write double loop for Array with strings
+//         StringBuilder sb = new StringBuilder();
+//         String prefix = "";
+//         if (strs.length == 0)  return prefix;   // empty
+//         if (strs.length == 1)  return strs[0];  
+        
+//         // find the minimum length string in strs
+//         int min = strs[0].length();   // first element length in strs
+//         for (String s : strs){
+//             min = Math.min(min, s.length());
+//         }
+        
+//         for (int i = 0; i<min; i++){
+//             for (int j = 0; j<strs.length; j++){
+//                 char c = charAt(strs[j][i]);
+//             }
+//         }
+        
+//         return prefix;
+        
+// Input: ["flower","flow","flight"]   min = 4
+
+// charAt()        
+        
+    }
+}
