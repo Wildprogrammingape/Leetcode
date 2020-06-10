@@ -1,0 +1,55 @@
+class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        // Solution two : two pointers (sliding windows)
+        int left = 0; // left boundary pointer
+        int sum = 0; // hold current sum of sliding windows
+        
+        int result = Integer.MAX_VALUE;   // update with min(result,current_length)
+        
+        for (int i=0; i<nums.length; i++){
+            sum += nums[i];
+            
+            while(sum >= s){  // continuouly shrink the left boundary when condition is eligible
+                result = Math.min(result, i-left+1);  // get the current eligible length
+                
+                sum -= nums[left];  // shrink current sum
+                left++;     // upgrade new left boundary
+            }
+        }
+        
+        return (result == Integer.MAX_VALUE) ? 0 : result;
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
+        // solution one, contiguous  needed, so we can't sort
+        if (nums.length == 0) return 0;
+        
+        Arrays.sort(nums);
+        int length = 0;
+        int sum = 0;
+        for (int i=nums.length-1; i>=0; i--){
+            sum += nums[i];
+            if (sum >= s){
+                length++;
+                return length;
+            }
+            else{
+                length++;
+            }
+        }
+        return 0;
+        */
+    }
+}
+
+//Input: s = 7, nums = [2,3,1,2,4,3]
+//sort  [1,2,2,3,3,4]  
+
+//[12,28,83,4,25,26,25,2,25,25,25,12]
+//[2,4,12,12,25,25,25,25,25,26,28,83]
