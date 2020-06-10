@@ -1,0 +1,45 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        if (nums.length == 0)  return new int[] {-1,-1};
+        
+        int first = findFirstElement(nums,target);
+        int last  = findLastElement (nums,target);
+        
+        return (nums[first] == target && nums[last] == target) ? new int[] {first, last} : new int[] {-1,-1};
+    
+    }
+       
+    // method to find the first postion element
+    private int findFirstElement(int[] nums, int target){
+        int left = 0, right = nums.length - 1;
+        while (left < right){
+            int mid = left + (right - left) / 2;  // lower mid
+            if (nums[mid] < target){
+                // next searching range is [mid + 1, right]
+                left = mid + 1;
+            }
+            else{
+                // next searching range is [left, mid]
+                right = mid;  // shrinking range to the *left*
+            }    
+        }
+        return left;
+    }
+    
+    // method to find the last postion element
+    private int findLastElement(int[] nums, int target){
+        int left = 0, right = nums.length - 1;
+        while (left < right){
+            int mid = left + (right - left + 1) / 2;   // upper mid
+            if (nums[mid] > target){
+                //next search range [left, mid - 1]
+                right = mid - 1;
+            }
+            else{
+                // [mid, right]
+                left = mid;    // shrinking range to the *right*
+            }
+        }
+        return left;
+    }
+}

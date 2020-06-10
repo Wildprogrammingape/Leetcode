@@ -1,0 +1,58 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        if (nums.length == 0)  return -1;
+        
+        // use hashmap to record the unsorted array "value" and "index"
+        
+        // * Time complexity is O(n) if we use hashtable
+        Map<Integer,Integer> map = new HashMap<>();
+        
+        for (int i=0; i<nums.length; i++){
+            map.put(nums[i],i);
+        }
+        
+        return (map.get(target) != null) ? map.get(target) : -1;
+        
+    }
+}
+
+// class Solution {
+//     private int target; 
+//     public int search(int[] nums, int target) {
+//         if(nums == null || nums.length == 0){
+//             return -1;
+//         }
+//         this.target = target;
+//         return helper(nums,0,nums.length - 1);
+//     }
+
+
+//     private int helper(int[] nums, int left ,int right){
+//         while ( left < right ){
+//             int mid =  ( left + right ) >>> 1; 
+//             if ( nums[mid] > nums[right] ){
+//                 int leftNum = binarySearch(nums, left, mid);
+//                 if (nums[leftNum] == target) return leftNum;
+//                 left = mid + 1;
+//             }else {
+//                 int rightNum = binarySearch(nums, mid, right);// 这里写mid还是mid+1，结果都是对的。
+//                 if (nums[rightNum] == target) return rightNum;
+//                 right = mid;
+//             }
+//         }
+
+//         return nums[left] == target? left : -1; 
+//     }
+
+//     private int binarySearch(int[] nums, int left ,int right){
+//         while ( left < right ){
+//             int mid = ( left + right ) >>> 1; 
+//             if (nums[mid] < target){
+//                 left = mid + 1;
+//             }else{
+//                 right = mid;
+//             }
+//         }
+//         return left; 
+//     }
+// }

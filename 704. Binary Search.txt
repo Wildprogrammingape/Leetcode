@@ -1,0 +1,43 @@
+// class Solution {
+//     public int search(int[] nums, int target) {
+//         // Binary search (solution one: shrinking range to left)
+//         if (nums.length == 0) return -1;
+            
+//         int left = 0, right = nums.length-1;
+//         while (left < right){
+//             int mid = left + (right - left) / 2;
+//             // exception range
+//             if (nums[mid] < target){
+//                 left = mid + 1;  // next search range
+//             }
+//             else{
+//                 right = mid;
+//             }
+//         }
+      
+//         return (nums[left] == target) ? left : -1;
+        
+//     }
+// }
+
+class Solution {
+    public int search(int[] nums, int target) {
+        // // Binary search (solution one: shrinking range to right)
+        if (nums.length == 0) return -1;
+            
+        int left = 0, right = nums.length-1;
+        while (left < right){
+            int mid = left + (right - left + 1) / 2;   // get upper mid
+            // exception range
+            if (nums[mid] > target){
+                right = mid - 1;  // next search range [left, mid - 1]
+            }
+            else{
+                left = mid;     // shrinking to right
+            }
+        }
+      
+        return (nums[left] == target) ? left : -1;
+        
+    }
+}

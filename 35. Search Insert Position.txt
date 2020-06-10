@@ -1,0 +1,43 @@
+// class Solution {
+//     public int searchInsert(int[] nums, int target) {
+//         int i = 0;
+//         while (i<nums.length-1){
+//             if (target > nums[i]) i++;
+//             else{
+//                 break;
+//             }
+//         }
+        
+//         if (target < nums[0])  return 0;
+//         if (target > nums[nums.length-1])  return nums.length;
+        
+//         return i;
+        
+//     }
+// }
+
+class Solution { 
+    public int searchInsert(int[] nums, int target) {
+        //Solution two : binary search 
+        
+        // empty array
+        if (nums.length == 0)  return 0;
+        
+        // target greater than largest number
+        if (target > nums[nums.length-1]) return nums.length;
+        
+        // implement binary search in this way: (while (left < right))
+        
+        int left = 0, right = nums.length - 1;
+        while (left < right){
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target){ //exception range
+                left = mid + 1;   // next search range  [mid+1, right]
+            }
+            else{
+                right = mid;
+            }
+        }
+        return left;    
+    }
+}
