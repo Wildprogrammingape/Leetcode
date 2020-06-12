@@ -1,0 +1,23 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        
+        int start = 0;
+        
+        for (int i = 0; i<nums.length; i++){   //把所有不等于val 的值都放在array前面
+            if (nums[i] != val){
+                nums[start] = nums[i];
+                start++;   // valid index
+            }
+        }
+        //for (int num : nums)    System.out.println(num);
+        return start;
+    }
+}
+
+//Given nums = [3,2,2,3], val = 3, output nums=[2,2* ,2,3]   return length = 2
+
+
+// swap nums[i] and nums[length-1]
+// int temp = nums[i];
+// nums[i] = nums[length-1];
+// nums[length-1] = temp;
