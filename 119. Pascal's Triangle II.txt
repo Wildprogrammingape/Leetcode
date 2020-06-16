@@ -1,0 +1,24 @@
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        List<Integer> preRow = new ArrayList<>();
+        preRow.add(1);  //build first row of pascal triangle   [1]
+        
+        for (int i=1; i<rowIndex+1; i++){
+            
+            List<Integer> curRow = new ArrayList<>();   // current row
+            
+            curRow.add(1); // add 1
+            
+            for (int j=1; j<i; j++){
+                curRow.add(preRow.get(j-1) + preRow.get(j));
+            }
+            
+            curRow.add(1); // add 1
+            
+            preRow = curRow;  // upgrade the previous row with current row
+        }
+        
+        return preRow;
+        
+    }
+}
