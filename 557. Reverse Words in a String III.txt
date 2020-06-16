@@ -1,0 +1,20 @@
+class Solution {
+    public String reverseWords(String s) {
+        StringBuilder sb = new StringBuilder();
+        String[] array = s.split(" ");
+        
+        for(String word : array){
+            StringBuilder temp = new StringBuilder(word);
+            // create a new StringBuilder to store current string, for reverse() to use
+            sb.append(temp.reverse());
+            sb.append(" ");
+        }
+        String result = sb.toString().trim();  //.toString()
+        
+        return result;
+        
+    }
+}
+
+// Input: "Let's take LeetCode contest"
+// Output: "s'teL ekat edoCteeL tsetnoc"

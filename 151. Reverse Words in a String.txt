@@ -1,0 +1,58 @@
+class Solution {
+    public String reverseWords(String s) {
+        
+        String[] words = s.trim().split(" +");    // " +" means more than one space
+        //s.trim() -- "  hello world!  " -- "hello world!"
+        //.split(" +") -- ["hello","world!"]
+        
+        List word_list = Arrays.asList(words);
+        // convert ["hello","world!"](array) to ["hello","world!"](List)
+        
+        Collections.reverse(word_list);
+        // reverse List ["hello","world!"] to ["world!","hello"]
+        
+        String new_words = String.join(" ", word_list);
+        // concatnate List elements with space, and return a string "world! hello"
+        
+        return new_words;
+    }
+}
+/*
+
+1.The trim() method removes whitespace from both sides of a string.
+don't change original string, and return type is "string"
+
+2.The string split() method breaks a given string around matches of the given regular expression.
+return type is "Array" with strings
+
+    String string = "004-034556";
+    String[] parts = string.split("-");
+    String part1 = parts[0]; // 004
+    String part2 = parts[1]; // 034556
+
+3. Collections.reverse() method is a java.util.Collections class method. It reverses the order of elements in a list passed as an argument.
+// For example, if list contains {1, 2, 3, 4}, it converts
+// list to {4, 3, 2, 1}
+
+4. Arrays.asList(½«array×ªÎªlist)
+The asList() method of java.util.Arrays class is used to return a fixed-size list backed by the specified array.
+This method acts as bridge between array-based and collection-based APIs
+      // create an array of strings
+      String a[] = new String[]{"abc","klm","xyz","pqr"};
+
+      List list1 = Arrays.asList(a);
+
+      // printing the list
+      System.out.println("The list is:" + list1);
+      
+Output:    The list is:[abc, klm, xyz, pqr]
+
+5. String join() method concatenates the given Strings and returns the concatenated String.
+    return type: string
+
+    List list<String> = Arrays.asList("Steve", "Rick", "Peter", "Abbey");
+	String names = String.join(" | ", list);
+	System.out.println(names);
+    
+Output:    Steve | Rick | Peter | Abbey
+*/
