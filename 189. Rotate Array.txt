@@ -1,0 +1,16 @@
+class Solution {
+    public void rotate(int[] nums, int k) {
+        // Solution one : Brute force (two pointer)
+        
+        for (int i=0; i<k; i++){
+            int pre = nums[nums.length-1];
+            for (int j=0; j<nums.length; j++){
+                int cur = nums[j];  // store current value
+                nums[j] = pre;      // set value
+                pre = cur;          // upgrade previous value
+            }
+        }
+
+        
+    }
+}
