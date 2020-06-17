@@ -1,0 +1,28 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode a = headA;
+        ListNode b = headB;
+        while (a != b){ // both null, or both at same node
+            a = (a==null) ? headB : a.next;
+            b = (b==null) ? headA : b.next; 
+        }
+        return a;
+        
+    }
+}
+
+// Notice that if list A and list B have the same length, this solution will terminate in no more than 1 //traversal; 
+// if both lists have different lengths, this solution will terminate in no more than 2 traversals -- in //the second traversal, swapping a and b synchronizes(同步化a和b，使其剩余步数相同) a and b before the end of the second traversal. 
+
+// By synchronizing a and b I mean both have the same remaining steps in the second traversal so that it's //guaranteed for them to reach the first intersection node, or reach null at the same time
