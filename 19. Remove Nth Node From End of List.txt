@@ -1,0 +1,60 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        // from right to left, we can use fast pointer to move first with n steps ahead
+        //then move slow pointer, maintain the gap, when fast goes to the end, slow pointer is what we want
+        
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        ListNode fast = dummy;
+        ListNode slow = dummy;
+        
+        for (int i=1; i<=n+1; i++){   // advance the gap with fast and slow pointer
+            fast = fast.next;
+        }
+        
+        while (fast!=null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        
+        slow.next = slow.next.next;
+        
+        return dummy.next;
+        
+        
+        
+        
+//         if (head ==null) return null;
+        
+//         int sum = 0;
+//         ListNode count = head;
+//         while(count!=null){
+//             count = count.next;
+//             sum++;    
+//         } 
+//         if (n>sum)  return head;   // too many corner cases !
+       
+//         ListNode current = head;
+//         for (int i=0; i<sum-n-1; i++){
+//             current = current.next;
+//         }
+//         current.next = current.next.next;
+        
+//         return head;
+    }
+}
+
+// Given linked list: 1->2->3->4->5, and n = 2.
+
+// After removing the second node from the end, the linked list becomes 1->2->3->5.
