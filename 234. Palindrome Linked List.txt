@@ -1,0 +1,87 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        // use fast and slow pointer to get the middle of linked list, then reverse the right hand side , named "slow", and make the size smaller when there are odd numbers.
+        // compare left "head" and right "slow" one by one with values
+        if (head == null)  return true;
+        
+        ListNode fast = head;
+        ListNode slow = head;
+        
+        while (fast!=null && fast.next!=null){  // get slow to middle
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        
+        // if (fast!=null) {  // odd numbers, make right side smaller
+        //     slow = slow.next;
+        // }
+        
+ 
+        slow = reverse(slow);  // reverse the right side
+        
+        while (slow!=null ){  //&& head!=null
+            
+            if (head.val != slow.val){
+                return false;
+            }
+            
+            slow = slow.next;
+            head = head.next;
+        }
+        
+        return true;
+        
+    }
+    
+    public ListNode reverse(ListNode head){
+        if (head == null)  return null;
+        
+        ListNode pre = null;
+        ListNode cur = head;
+        
+        while (cur != null){
+            ListNode next_node = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next_node;
+        }
+        
+        return pre;
+    }
+}
+
+// public boolean isPalindrome(ListNode head) {
+//         Solution one: failed, because the linked list is changed when calling reverse() method
+
+//         if (head == null)  return true;
+//         // reverse the linked list and check equality
+//         ListNode new_reverse = reverse(head);
+  
+//         //return (head == new_reverse) ? true : false;
+        
+//         while (head != null && new_reverse != null){
+//             if (head.val != new_reverse.val) return false;
+//             head = head.next;
+//             new_reverse = new_reverse.next;
+//         }
+        
+//         return true;
+        
+//     }
+
+// input: 1->2->2->3->null
+
+// after reverse: 3->2->2->1->null
+//              head1     head
+
+// That's how the Java pointer works. Say you have an input: 1->2->2->3->null. The head pointer is pointing to the 1 in the list. After you reverse the list, the list becomes 3->2->2->1->null, and you got the head1 pointer pointing to the 3 in the list. But the head is still pointing to the 1 in the list since you let the 1 point to null in the reverse function. So no matter what the input is, the head pointer will always point to the null after reversing. Therefore the code is wrong unless you create a whole new copy of the list and reverse it.

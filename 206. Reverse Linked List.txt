@@ -1,0 +1,53 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode pre = null;
+        ListNode cur = head;
+        
+        while (cur != null){               // traverse the whole linked list
+            ListNode cur_next = cur.next;  // store the current next node
+            cur.next = pre;                // reverse 
+            pre = cur;                     // update the pre
+            cur = cur_next;                // go to next node
+        }
+        
+        return pre;
+    }
+}
+
+// Input: 1->2->3->4->5->NULL
+// Output: 5->4->3->2->1->NULL
+
+
+// class Solution {
+//     public ListNode reverseList(ListNode head) {
+//         // Recursion Solution
+//         return reverse(head);       
+//     }
+    
+//     public ListNode reverse(ListNode cur){
+//         if (cur == null)  return cur;   // corner case
+//         if (cur.next == null) return cur; // final recursion end, return the last node (5)
+        
+//         ListNode p = reverse(cur.next);  // recursion, p is the head (final node)
+//         cur.next.next = cur;             // now the cur is last second node, do the reverse
+//         cur.next = null;
+        
+//         return p;
+        
+//     } 
+// }
+// input:  1->2    most simple case,  easy to write the recursion version
+// Output: 2->1
+
+// Input: 1->2->3->4->5->NULL
+// Output: 5->4->3->2->1->NULL
