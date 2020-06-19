@@ -1,37 +1,45 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode(0);
+        ListNode l3 = dummyHead;
+        int carry = 0;                                // global variable carry
+        
+        while (l1 != null || l2 != null){ // when there is any linked list to traverse
+            int l1_val = (l1 != null) ? l1.val : 0;   // see the value as 0 if null
+            int l2_val = (l2 != null) ? l2.val : 0;
+            
+            int sum = l1_val + l2_val + carry;
+            
+            int last_digit = sum % 10;    // get the last digit
+            carry = sum / 10;             // update the carry
+            
+            ListNode new_node = new ListNode(last_digit);  // add new node to l3
+            l3.next = new_node;
+            l3 = l3.next;
+            
+            if (l1 != null)  l1 = l1.next;       // move forward if not null
+            if (l2 != null)  l2 = l2.next;
+        }
+        
+        // final check for new digit
+        if (carry == 1){
+            ListNode new_digit = new ListNode(1);
+            l3.next = new_digit;
+        }
+        
+        return dummyHead.next;
+    }
+}
 
-class Solution:
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
-        l1_string = ''
-        while l1 is not None:        # ** Note: while l1.next != None  ----  # '24'
-            l1_string = l1_string + str(l1.val)
-            l1 = l1.next                         
-        # '243'
-
-        l2_string = ''
-        while l2 is not None:
-            l2_string = l2_string + str(l2.val)
-            l2 = l2.next
-        #'564'
-        
-        l1_string_rev = l1_string[::-1]  # '342'
-        l2_string_rev = l2_string[::-1]  # '465'
-        
-        sum_int = int(l1_string_rev) + int(l2_string_rev)     # 807
-        sum_rev = str(sum_int)[::-1]          # '708'
-        
-        
-        head = ListNode(0)
-        ptr = head
-        
-        for item in sum_rev:
-            newNode = ListNode(int(item))
-            ptr.next = newNode
-            ptr = ptr.next
-        
-        return head.next
-        
+// Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+// Output: 7 -> 0 -> 8
