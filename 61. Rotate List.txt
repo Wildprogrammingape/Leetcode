@@ -1,0 +1,46 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null) return null;
+        
+        // if k is very large, we need to find length of linked list, and use k % len
+        ListNode fast = head;
+        ListNode slow = head;
+        int len = 0;
+        while (fast != null){
+            fast = fast.next;
+            len++;
+        }
+        
+        fast = head;   // go back to head
+        
+        // firstly, use two pointer to find the last k element
+        for (int i=0; i<k%len; i++){  
+            fast = fast.next;
+        }
+        while (fast.next != null){
+            fast = fast.next;
+            slow = slow.next;       // now slow is the tail node
+        }
+        
+        fast.next = head;    // link current tail to start
+        head = slow.next;    // reset head to the beginning
+        slow.next = null;    // break the link
+        
+        return head;
+    }
+}
+
+
+
+
+// 关键点： 用双指针的方法找到移位后的tail节点，相当于倒数k个元素，因此用快慢指针即可找到。
