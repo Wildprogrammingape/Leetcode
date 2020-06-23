@@ -1,0 +1,35 @@
+class Solution {
+    public int numIslands(char[][] grid) {
+        int count = 0;
+        
+        // loop through the whole grid
+        for (int i=0; i<grid.length; i++){
+            for (int j=0; j<grid[0].length; j++){
+                if (grid[i][j] == '1'){  // call DFS when find '1'
+                    count++;
+                    callDFS(i, j, grid);
+                }
+            }
+        }
+        
+        return count;
+        
+    }
+    public void callDFS(int i, int j, char[][] grid){
+        // boundary check
+        if (i<0 || i>=grid.length || j<0 || j>=grid[0].length || grid[i][j] == '0') return;
+        
+        grid[i][j] = '0';   // set current island to '0'
+        
+        // then determine the adjacent neighbour
+        
+        callDFS(i-1, j , grid); // up
+        callDFS(i+1, j , grid); // down
+        callDFS(i,   j-1 , grid); //  left
+        callDFS(i,   j+1 , grid); //  right
+    }
+}
+
+
+
+//  DFS: Basically when we see "1" , we set it to "0", then increment "island number" to 1; and then determine the adjacent "1" recursively.
