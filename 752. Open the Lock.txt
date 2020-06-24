@@ -1,0 +1,61 @@
+class Solution {
+    public int openLock(String[] deadends, String target) {
+        // BFS to find the shortest path 
+        
+        HashSet<String> dead_ends = new HashSet(Arrays.asList(deadends)); // append all string in deadends(String[]) to HashSet   
+          
+        HashSet<String> visited = new HashSet();  // *hashset to record all visited string  
+        visited.add("0000");    
+        Queue<String> queue = new LinkedList();   // *queue to implement bfs
+        queue.offer("0000");
+        int level = 0;
+        
+        while (!queue.isEmpty()){
+            
+            int size = queue.size(); // record current level size
+            
+            while (size > 0){  // while loop for current level
+                String cur = queue.poll();   //poll queue and get it, "0000" at first
+                
+                if (dead_ends.contains(cur)){  // deadend
+                    size--;
+                    continue;  // skip current string, dont need to append related lock
+                }
+                
+                if (cur.equals(target)){  // come across right lock
+                    return level;
+                }
+                
+                StringBuilder sb = new StringBuilder(cur);  // store cur into stringbuilder
+                
+                // now append all related string in "visited" and "queue"
+                // there are totally 4 characters
+                for (int i=0; i<4; i++){
+                    char character = cur.charAt(i);
+                    String s1 = sb.substring(0,i) + (character == '9' ? 0 : character - '0' + 1) + sb.substring(i+1);   // increment
+                    
+                    String s2 = sb.substring(0,i) + (character == '0' ? 9 : character - '0' - 1) + sb.substring(i+1);   // decrement
+                    
+                    if (!visited.contains(s1) && !dead_ends.contains(s1)){ // avoid duplicates
+                        visited.add(s1);
+                        queue.offer(s1);
+                    }
+                    if (!visited.contains(s2) && !dead_ends.contains(s2)){
+                        visited.add(s2);
+                        queue.offer(s2);
+                    }
+                    
+                }
+                
+                
+                size--;
+            }
+            
+            level++;
+        }
+        
+        return -1;
+        
+        
+    }
+}
