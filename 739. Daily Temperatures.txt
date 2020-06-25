@@ -1,0 +1,35 @@
+class Solution {
+    public int[] dailyTemperatures(int[] T) {
+        Stack<Integer> stack = new Stack<>();  // create a stack to store index
+        int[] result = new int[T.length];      // result
+        for (int i=T.length-1; i>=0; i--){     // loop from right to left
+            
+            while (!stack.isEmpty() && T[i] >= T[stack.peek()]){  
+                // pop the stack when there is no higher temperature
+                stack.pop();
+            }
+            
+            result[i] = (stack.isEmpty()) ? 0 : stack.peek() - i;
+            // result[i] = 0 when stack is poping to empty
+           
+            stack.push(i);
+      
+        }
+        
+        return result;
+        
+    }
+}
+
+// T = [73, 74, 75, 71, 69, 72, 76, 73]    
+//       0   1   2   3   4   5   6   7
+
+// Stack solution:  iterate from right to left, result = stack.peek - i
+// note: we store the *index* into stack
+
+//1. while current value >= stack peek value :   stack.pop
+
+//2. result = 0 (when stack is empty) 
+//           = stack.peek - i
+
+//3. finally push the current index into stack
