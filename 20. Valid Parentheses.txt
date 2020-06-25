@@ -1,23 +1,36 @@
-class Solution:
-    def isValid(self, s: str) -> bool:
-        if s=="":
-            return True
+class Solution {
+    public boolean isValid(String s) {
+        // This is a maple Stack question
         
-        opened  = ['(' , '{' , '[']
-        closed  = [')' , '}' , ']']
+        Stack<Character> stack = new Stack<>();  // create a stack
         
-        mystack = []                 #  ({})       ({)}    ){}
-          
-        for item in s:
-            if item in opened:
-                mystack.append(item)
-            elif item in closed:
-                if mystack!=[] and mystack[-1] == opened[closed.index(item)]:  
-                    mystack.pop()     #List.pop()  == List.pop(-1)
-                else:           # ), }, ]  is the first character
-                    return False         
-            else:
-                return False    # input s is not a string only including parentheses
+        // now we need to loop through all characters in s
+        // .toCharArray()  method -- array with single character
         
-        return len(mystack)==0
+        char[] charArray = s.toCharArray();
+        
+        for (char c : charArray){
+            if (c == '(' || c == '{' || c == '['){    // push all opening brackets
+                stack.push(c);
+            }
+            
+            else if (!stack.isEmpty() && stack.peek() == '(' && c == ')'){ // fit properly
+                stack.pop();
+            }
+            
+            else if (!stack.isEmpty() && stack.peek() == '[' && c == ']'){ // fit properly
+                stack.pop();
+            }
+            
+            else if (!stack.isEmpty() && stack.peek() == '{' && c == '}'){ // fit properly
+                stack.pop();
+            }
+            
+            else{
+                return false;   // not fit, or come across closing brakets at first
+            }
+        }
     
+        return stack.isEmpty();      
+    }
+}
