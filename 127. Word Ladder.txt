@@ -1,0 +1,62 @@
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        // use a set to replace list
+        Set<String> set = new HashSet<>();  
+        for (String word : wordList){
+            set.add(word);
+        }
+    
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(beginWord);
+        int level = 1;
+        
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            while (size > 0){
+                // implement BFS
+                
+                String current_word = queue.poll();
+                
+                // we need to loop all characters
+                char[] charArray = current_word.toCharArray();
+                for (int i=0; i<charArray.length; i++){
+                    char original_char = charArray[i];
+                    for (char c = 'a'; c<='z'; c++){
+                        charArray[i] = c;
+                        String new_word = String.valueOf(charArray);//convert charArray to string
+                        
+                        if (set.contains(new_word) && new_word.equals(endWord)){
+                            return level+1;
+                        }
+                        if (set.contains(new_word)){
+                            queue.offer(new_word);
+                            set.remove(new_word);
+                        }
+                        
+                    }
+                    charArray[i] = original_char;
+                    // move character back after changing one element from 'a' to 'z'.
+                }
+
+                size--; // every time queue pop one element
+            }
+            level++;    // finish current level, then leve + 1
+        }
+        
+        return 0;   // if finally nothing returned in above loop
+    }
+}
+
+
+
+  
+
+
+//思路：改变beginWord的每一个字母，从'a' - 'z' ， 如果刚好等于endWord 就返回当前level； 如果改变后的单词在wordList中，则把当前单词push到queue中，循环往复
+
+//细节：1.每次改变字母后check完，需要把当前字母改成原来的样子; 
+     //2.用set代替题中给的List，因为set判断有无一个元素是O(1)，而list是O(n); 
+     //3.当改变后的单词在Set中找到后，把set中的remove掉，防止下一层重新找回来。
+
+
+// String.valueOf()   ==  object.toString() 
