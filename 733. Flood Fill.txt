@@ -1,0 +1,31 @@
+class Solution {
+    
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        // dfs (similar to number of islands)
+        int original = image[sr][sc];
+        if (original == newColor)  return image;
+        
+        dfs(image, sr, sc, newColor, original);
+        
+        return image;
+        
+    }
+    
+    
+    public void dfs(int[][] image, int i, int j, int newColor, int original){
+        if (i<0 || i>=image.length || j<0 || j>=image[0].length || image[i][j] != original){
+            return;
+        }
+        // set current pixel to new color
+        image[i][j] = newColor;
+        // judge adjecant neighbours
+        dfs(image, i+1, j, newColor, original);
+        dfs(image, i-1, j, newColor, original);
+        dfs(image, i, j+1, newColor, original);
+        dfs(image, i, j-1, newColor, original);
+    }
+}
+
+// 1 1 1
+// 1 1 0
+// 1 0 1
