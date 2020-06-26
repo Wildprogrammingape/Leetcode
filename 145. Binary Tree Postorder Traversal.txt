@@ -1,19 +1,31 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def postorderTraversal(self, root: TreeNode) -> List[int]:
-        # Left - Right - Root
-        return self.postorder_traversal(root,[])
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        helper(root, result);
+        return result;
+    }
     
-    
-    def postorder_traversal(self,start,traversal):
-        if start is not None:
-            traversal = self.postorder_traversal(start.left,traversal)
-            traversal = self.postorder_traversal(start.right,traversal)
-            traversal.append(start.val)
-        return traversal
+    public void helper(TreeNode root, List<Integer> list){
+        if (root != null){
+            helper(root.left, list);
+            helper(root.right, list);
+            list.add(root.val);
+            
+        }
+    }
+}
