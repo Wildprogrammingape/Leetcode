@@ -1,0 +1,44 @@
+class Solution {
+    public String decodeString(String s) {
+        
+        Stack<Integer> intStack = new Stack<>(); // store previous numbers
+        Stack<String> strStack = new Stack<>();  // store previous strings
+        String cur_string = "";                  // store current string
+        int cur_count = 0;                       // store current count number
+        
+        for(char c : s.toCharArray()){   // loop through every characters in s
+            if (Character.isDigit(c)){  // Character.isDigit() to judge if a character is digit number
+                cur_count = 10 * cur_count + c - '0'; // 32 = 3*10 + 2
+            }
+            else if (c == '['){             // about to meet current string
+                intStack.push(cur_count);   // push previous numbers into stack
+                strStack.push(cur_string);  // push previous string into stack
+                cur_count = 0;              // reset current count
+                cur_string = "";            // reset current string
+            }
+            else if (c == ']'){             // need to count current string many times
+                String temp = cur_string;   // store following repeated string  "bc"
+                cur_string = strStack.pop();// get previous string "aaa"
+                
+                for (int k=intStack.pop(); k>0; k--){
+                    cur_string += temp;     // aaa + bc + bc
+                }
+                
+            }
+            else{
+                cur_string += c;
+            }
+        }
+        return cur_string;
+        
+        
+    }
+}     
+// Input: s = "3[a]2[bc]"
+// Output: "aaabcbc"
+
+// 由于本题是嵌套配对型的题目，需要用两个Stack，一个栈存靠前的数字，一个栈存之前的所有字符串
+// 还需要两个变量，字符串cur存放当前的string，整数k存放当前重复的次数
+
+// 为什么用stringbuilder 存放当前字符串？因为需要每个character可变 (本题不需要，所以我优化了一下)
+// You use StringBuilder when you need to create a mutable character sequence, usually to concatenate several character sequences together.
