@@ -1,0 +1,36 @@
+class Solution {
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        // classic dfs problem
+        
+        HashSet<Integer> visited = new HashSet<>(); // hold visited rooms
+        visited.add(0);
+        
+        Stack<Integer> stack = new Stack<>();  // hold room numbers we have access to
+        stack.push(0);
+        
+        while (!stack.isEmpty()){
+            
+            // go to that room and get all keys
+            List<Integer> keys = new ArrayList<>();
+            keys = rooms.get(stack.pop());         // stack.pop() is room numbers we have access to 
+            
+            for (int key: keys){ // loop through all keys
+                if (!visited.contains(key)){
+                    visited.add(key);
+                    stack.push(key);
+                }
+            }
+        }
+        
+        return visited.size() == rooms.size();
+    }
+}
+
+
+
+
+
+
+
+
+// 经典DFS题型，这里需要一个Hashset存放所有visited过的房间， Stack存放当前可访问的 room number，以及一个list存放当前房间里的所有keys。经过dfs遍历，如果hashset的size和原给定房间数相同则为true.
