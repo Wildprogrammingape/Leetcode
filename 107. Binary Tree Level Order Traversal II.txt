@@ -1,29 +1,46 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        // bfs
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null)  return result;
+        
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            ArrayList<Integer> temp = new ArrayList<>();
+            while (size > 0){
+                TreeNode node = queue.poll();
+                temp.add(node.val);
+                
+                if (node.left != null)  queue.offer(node.left);
+                if (node.right != null) queue.offer(node.right);       
+                
+                size--;
+            }
+            result.add(temp);
+        }
+        Collections.reverse(result);   // reverse an ArrayList
+        return result;
+    }
+}
 
-class Solution:
-    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
-        # BFS
-        if root is None:
-            return []
-        
-        current_list = []       # list consisting of nodes
-        result = []
-        current_list.append(root)   
-        
-        while len(current_list) > 0:
-            result.append([item.val for item in current_list])
-            next_level_list = []
-            for node in current_list:
-                if node.left is not None:
-                    next_level_list.append(node.left)
-                if node.right is not None:
-                    next_level_list.append(node.right)
-            current_list = next_level_list
-        
-        result = result[::-1]      # both list and string can implement slicing
-        return result
+// Collections.reverse()， 由于ArrayList本身就在Java集合中， 所以可直接用该Method
+
+//Collections.reverse(Arrays.asList(yourArray));  (reverse an array)

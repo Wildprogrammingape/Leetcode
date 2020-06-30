@@ -1,27 +1,58 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def levelOrder(self, root: TreeNode) -> List[List[int]]:
-        # BFS
-        if root is None:
-            return []
-        mylist = []  # consisting of node
-        result = []  # [   [3],  [9,20], [15,7]   ]
-        mylist.append(root)
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        // BFS 
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null)  return result;
         
-        while len(mylist) > 0:
-            result.append([item.val for item in mylist])   #** must append([XXX])
-            next_level_list = []
-            for node in mylist:              # for loop to store all level node
-                if node.left is not None:
-                    next_level_list.append(node.left)   # next_level_list = [9] (node)
-                if node.right is not None:
-                    next_level_list.append(node.right)    # [9,20]
-            mylist = next_level_list         # replace mylist with the next level nodes
-            
-        return result
+        Queue<TreeNode> queue = new LinkedList<>();  // create a queue to hold nodes
+        queue.offer(root);           
+        
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            ArrayList<Integer> temp = new ArrayList<>();
+            while (size > 0){
+                TreeNode node = queue.poll();   // get current node
+                temp.add(node.val);            // add current value into temp list
+                
+                if (node.left != null){    // append left child
+                    queue.offer(node.left);
+                }
+                
+                if (node.right != null){    // append right child
+                    queue.offer(node.right);
+                } 
+                size--;
+            }
+            result.add(temp);  // add temp list into result
+        }
+        
+        return result;
+    }
+}
+
+//     3
+//    / \
+//   9  20
+//     /  \
+//    15   7
+        
+// [
+//   [3],
+//   [9,20],
+//   [15,7]
+// ]
