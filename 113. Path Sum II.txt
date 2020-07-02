@@ -1,46 +1,78 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> result = new ArrayList<>();   // hold final result
+        List<Integer> current_list = new ArrayList<>();   // hold current list
+        
+        if (root == null)  return result;
+        
+        helper(root, current_list, result, sum);
+        
+        return result;
+    }
+    
+    public void helper(TreeNode root, List<Integer> current_list, List<List<Integer>> result, int target){
+        if (root == null)  return;  
+        
+        current_list.add(root.val);  // update current list
 
-class Solution:
-    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
-     
-        result = []
-        
-        def findpath(root, current_list, current_sum):
-            if root is None:
-                return    # return Nothing
-            if root.val + current_sum == sum and root.left == None and root.right == None:
-                result.append(current_list + [root.val])
+        if (root.left == null && root.right == null && root.val == target){
             
-            findpath(root.left, current_list + [root.val], current_sum + root.val )
-            findpath(root.right, current_list + [root.val], current_sum + root.val )
-        
-        
-        findpath(root, [], 0)
-        
-        return result
-    
-    
-    
-    
-    
-        ''' # object-oriented , NOT GOOD
-        final_result = []
-        self.findpath(root, [], 0, final_result)
-    
-        return final_result
-    
-    def findpath(self, root, current_list, current_sum ,result):
-        if root is None:
-            return    # return Nothing
-        if root.val + current_sum == sum and root.left == None and root.right == None:
-            result.append(current_list + [root.val])
+            result.add(new ArrayList(current_list));
             
-        self.findpath(root.left, current_list + [root.val], current_sum + root.val, result)
-        self.findpath(root.right, current_list + [root.val], current_sum + root.val,result)
+            // need a copy of current_list, if we use "result.add(current_list)", that means add it by reference, so it will change with current_list changing
+        }
         
-        '''
+        helper(root.left, current_list, result,  target - root.val);
+        helper(root.right, current_list, result, target - root.val);
+        
+        current_list.remove(current_list.size() - 1);
+        // backtracking, for every recursion we need to decrement the size by 1
+        // since we blindly add number into current_list, so we need to pop it in the final
+    }
+}
+
+// 两个注意的点： 
+// 1. result.add() 需要copy 当前 current_list，因为如果直接添加是它的reference，所以值会随之改变
+// 2. 程序的末尾需要回溯，用来减掉我们blindly添加进来的值  .remove(.size() - 1)
+
+
+
+// Let me try to explain by using the above example.
+// Say we at a point where root node is 11, and the path is {5, 4, 11}.
+// When using DFS to traverse the left child node 7, the path will be {5, 4, 11, 7}.
+// We need to remove 7 from the path before traversing the right child node 2. Otherwise the path of node 2 will be {5, 4, 11, 7, 2} . That's why we need to remove the last element.
+// In short, it's a general back-tracking technique.
+
+// 另一种写法，在递归调用时候每次都传递一个新的ArrayList，复杂度高但是可以避免回溯:
+    
+/*
+    public void helper(TreeNode root, List<Integer> current_list, List<List<Integer>> result, int target){
+        if (root == null)  return;  
+        
+        current_list.add(root.val);  
+
+        if (root.left == null && root.right == null && root.val == target){  
+            result.add(current_list);
+        }
+        
+        helper(root.left, new ArrayList<>(current_list), result,  target - root.val);
+        helper(root.right, new ArrayList<>(current_list), result, target - root.val);
+        
+    }
+}
+*/
