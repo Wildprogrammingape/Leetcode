@@ -1,0 +1,68 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+        // Clear solution with recurrsion
+        if (root == null)  return root;
+        helper(root);
+        
+        return root;
+    }
+    
+    public void helper(Node root){
+        if (root == null)  return;
+        
+        if (root.left != null) {        // connect left - right
+            root.left.next = root.right;
+        }
+        
+        if (root.right != null && root.next != null){ // except right corner node
+            root.right.next = root.next.left;
+        }
+        
+        helper(root.left);
+        helper(root.right);  // recur all nodes
+    }
+
+}
+
+
+
+
+
+
+//     public Node connect(Node root) {
+//         if (root == null)  return null;
+//         if (root.left != null)  root.left.next = root.right;
+//         if (root.right != null && root.next != null)  {
+//             root.right.next = root.next.left;
+//         }
+        
+//         connect(root.left);   // what is here return null ? (how to deal with inner return)
+//         connect(root.right);  // I have some doubts, so I changed another concise version
+                                                             
+        
+//         return root;
+//     }
+// 猜想： 对于只有一个结点这种情况，虽然每个method只有一个返回值，但是  return root  这个才是最终返回值， 调用的两次return null 应该是Inner return 不影响外部结果。
