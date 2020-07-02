@@ -1,17 +1,43 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean hasPathSum(TreeNode root, int sum) {
+        
+        return helper(root, 0, sum);
+    }
+    
+    public boolean helper(TreeNode root, int current_sum, int target){
+        if (root == null)  return false;
+        
+        if (root.left == null && root.right == null && root.val + current_sum == target){
+            return true;
+        }   
+        
+        current_sum += root.val;    // update current sum
+        
+        return helper(root.left, current_sum, target)  || helper(root.right, current_sum, target);  
+    }
+}
 
-class Solution:
-    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
-        if root is None:
-            return False
-        if root.val == sum and root.left == None and  root.right == None:
-            return True
-        
-        return self.hasPathSum(root.left,sum-root.val) or self.hasPathSum(root.right,sum-root.val)
-        
-        # recur the function(X, sum - root.val)
+// note: current_sum is not necessary here, we can invoke helper(root.left, target- root.val)
+
+//       5
+//      / \
+//     4   8
+//    /   / \
+//   11  13  4
+//  /  \      \
+// 7    2      1
