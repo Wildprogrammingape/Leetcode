@@ -1,46 +1,66 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 
-class Solution:
-    def maxDepth(self, root: TreeNode) -> int:
-        if root is None:    # for node which is not None, max(leftchild,rightchild) + 1
-            return 0
-        
-        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+// Solution 1 :  Top - bottom , 通过dfs遍历每一个leaf结点时，用一个参数result不断更新答案。
+
+// class Solution {
     
+//     int result = 0;       // use this parameter to get result
     
+//     public int maxDepth(TreeNode root) {    
+//         findLeaves(root, 1);
+//         return result;
+//     }
     
+//     public void findLeaves(TreeNode root, int depth){
+//         if (root == null)  return;              // end the recursion when node is null
+        
+//         if (root.left == null && root.right == null) {
+//             result = Math.max(result, depth);  // update "result" when finding leaves
+//         }
+        
+//         findLeaves(root.left, depth + 1);   // every recursion depth plus one
+//         findLeaves(root.right, depth + 1);  
+//     }
     
+
+// }
+
+
+
+
+
+// Solution 2 : Bottom - Up ，每一次recursion通过下一层的children来往上传递，每一层都计算left和right结点的值，                                                                             最终返回 max(l,r) + 1
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null)  return 0;    
+        
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        
+        return Math.max(left, right) + 1;
+    }
     
-    '''
-    def maxDepth(self, root: TreeNode) -> int:
-        if root == None:
-            depth = 0
-        else:
-            depth = 1
-       
-        if self.leafRecursion(root.left, root.right, depth) is True:
-             return depth 
-          
-    def leafRecursion(self, left, right, i ):
-        
-        if left is None and right is None:
-            
-            return True
-        
-        i += 1
-        
-        if left is not None and right is None:
-            
-            return self.leafRecursion(left.left, left.right,i)
-        
-        if left is None and right is not None:
-            
-            return self.leafRecursion(right.left, right.right,i)
-          
-        return self.leafRecursion(left.left, left.right,i) and self.leafRecursion(right.left, right.right,i)
-       ''' 
+}
+
+
+
+
+
+
+// When you meet a tree problem, ask yourself two questions: Can you determine some parameters to help the node know its answer? Can you use these parameters and the value of the node itself to determine what should be the parameters passed to its children? If the answers are both yes, try to solve this problem using a "top-down" recursive solution.
+
+// Or, you can think of the problem in this way: for a node in a tree, if you know the answer of its children, can you calculate the answer of that node? If the answer is yes, solving the problem recursively using a bottom up approach might be a good idea.
