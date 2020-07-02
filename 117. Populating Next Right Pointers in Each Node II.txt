@@ -1,0 +1,55 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+        
+        Node dummy = new Node(0); // construct a dummy node to get next level_head
+        Node pre = dummy;         // pre pointing to dummy initially 
+        
+        Node level_head = root;   // record every level head
+        Node cur = root;          // record current node
+        
+        while (level_head != null){
+            cur = level_head;
+            while (cur != null){
+                if (cur.left != null){
+                    pre.next = cur.left;   // current node has child, link dummy with cur.left
+                    pre = pre.next;        // move forward
+                }
+                if (cur.right != null){
+                    pre.next = cur.right;  // current node has both children, link them
+                    pre = pre.next;        // continually move forward
+                }
+                cur = cur.next;            //* Important here, since children was linked by last level 
+            }
+            level_head = dummy.next;       //* find next level_head
+            dummy.next = null;             // dummy pointing to null 
+            pre = dummy;                   // reset pre pointing to dummy again
+        }
+        
+        return root;
+    }
+}
+
+// 本题要点： 利用一个dummy结点来连接child，以及找到下一层的初始结点 Very briliant !

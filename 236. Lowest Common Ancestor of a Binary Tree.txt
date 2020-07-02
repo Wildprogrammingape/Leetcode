@@ -1,46 +1,57 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // dfs
+        
+        if (root == p || root == q)  return root;           // find p or q , return it
+        if (root == null)  return null;                     // recursion end conditon
+        
+        TreeNode left  = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        
+        if (left != null && right != null) {               // find the common ancestor
+            return root;
+        }
+        
+        if (left == null && right == null) {              // no answer found
+            return null;
+        }
+        
+        return left == null ? right : left;               // p and q are finally in both side, return it
+        
+    }
+}
 
-class Solution:
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        # Traditional divide and conquer
-        
-        # Edge/condition
-        if not root:                            # root is None
-            return None
-        if root == p or root == q:              # find the tree
-            return root
-        
-        # Divide
-        left = self.lowestCommonAncestor(root.left,p,q)
-        right = self.lowestCommonAncestor(root.right,p,q)
-        
-        # Conquer
-        if left and right:  # left is not None, right is not None
-            return root
-        if not left:        # right is XX, but left is None
-            return right
-        if not right:       # left is XX, but right is None
-            return left
-        
-        
-        
-        
-        '''
-        # Accepted, but time limit exceeded
-        while root:
-        
-            if root.val == q.val:
-                return q
-            if root.val == p.val:
-                return p
-            if (root.left == p and root.right == q) or  (root.left == q and root.right == p):
-                return root
-        
-            self.lowestCommonAncestor(root.left,p,q)
-            self.lowestCommonAncestor(root.right,p,q)
-        '''
+
+
+
+
+//          1)  p = 5, q = 1
+            
+//                  3
+//               5/   \1   
+//              5      1
+//            n/ \n  n/ \n
+//             6  2  0   8
+//              n/ \n
+//              7   4
+             
+//          2)  p = 5, q = 4   
+            
+//                  3
+//               5/   \n   
+//              5      1
+//             / \   n/ \n
+//             6  2   0   8
+//               / \
+//              7   4
+             
+// 对于这种情况，最终root结点3的左边返回5，右边返回null，一定是p和q在同一侧，因此直接返回5即可。
