@@ -1,29 +1,51 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 
-class Solution:
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        # if p<q<node.val -- in the left subtree
-        # if node.val>p>q -- in the right subtree
-        # if p<node.val<q -- return the node itself
-        
-        pointer = root
-        while pointer:
-            if p.val < pointer.val and q.val < pointer.val:
-                pointer = pointer.left
-            elif p.val > pointer.val and q.val > pointer.val:
-                pointer = pointer.right
-            # elif p.val<= pointer.val <=q.val:
-            else:
-                return pointer
-        
-        
-        
-        # p=3, q=5
-        # binary search tree definition:The left subtree of a node contains only nodes with keys lesser than the node’s key.
-        #The right subtree of a node contains only nodes with keys greater than the node’s key.
-        #The left and right subtree each must also be a binary search tree.
+// class Solution {
+//     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+//         TreeNode cur = root;
+//         while (cur != null){
+//             if (cur.val > p.val && cur.val > q.val){
+//                 cur = cur.left;
+//             }
+//             else if (cur.val < p.val && cur.val < q.val){
+//                 cur = cur.right;
+//             }
+              
+//             else {// cur.val值在p和q之间，Or 等于p或q     
+                
+//                 return cur;
+//             }                        
+//         }      
+//         return cur;
+//     }
+// }
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root.val > p.val && root.val > q.val){
+            return lowestCommonAncestor(root.left, p, q); // must add "return" here
+        }
+        else if (root.val < p.val && root.val < q.val){
+            return lowestCommonAncestor(root.right, p, q);
+        }
+        else {
+            return root;
+        }
+    }
+    
+}
+
+// binary search tree definition:
+// The left subtree of a node contains only nodes with keys lesser than the node’s key.
+// The right subtree of a node contains only nodes with keys greater than the node’s key.
+// The left and right subtree each must also be a binary search tree.
+
+// 二叉搜索树定义: 对于一个node，它的左边子树所有值比他小，右子树所有值比他大，且任意一个子树都是二叉搜索树
