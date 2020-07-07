@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+        // divide and conquer method
+        if (root == null)  return root;
+        // divide
+        if (root.val > key)       root.left = deleteNode(root.left, key);
+        
+        else if (root.val < key)  root.right = deleteNode(root.right, key);
+        
+        else{   // conquer: found the key to be deleted(need to return something)
+            
+            if (root.left == null) return root.right;       // have one child, or no child return null
+            else if (root.right == null) return root.left;
+            
+            // have two children: need to replace node.val with leftmost, and delete leftmost node
+            // 替换当前值为右子树的successor最左边结点，并删除lestmost结点
+            else{
+                root.val = getMin(root.right);
+                root.right = deleteNode(root.right, root.val);  //* call deleteNode() with another key
+            }
+     
+        }
+        return root;   // * finally return root
+    }
+    
+    private int getMin(TreeNode root){
+        while (root.left != null) root = root.left;
+        return root.val;
+    }
+}
+
+// 本题用分治法，每次调用自己时候，最终返回 root(有两个child时)，并同时对子树进行相同的操作.
