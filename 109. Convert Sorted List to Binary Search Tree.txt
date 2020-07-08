@@ -1,0 +1,61 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        if (head == null)  return null;
+        // two pointer get the middle of linked list
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode preSlow = null;  // preSlow is the node before slow, using to break the left linked list
+        while (fast!=null && fast.next!=null){ // two pointer to find the middle 
+            preSlow = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        // construct a new node with slow.val
+        TreeNode node = new TreeNode(slow.val);
+        
+        if (preSlow != null){ // there are more than one node
+            preSlow.next = null;               // break the left linked list
+            node.left = sortedListToBST(head); // left branch linked list beginning with head 
+            node.right = sortedListToBST(slow.next);  // right branch linked list beginning with slow.next
+            
+        }
+        
+        return node;  // finally return this node
+    }
+}
+
+
+
+
+
+//          -10 ---> -3 ---> 0 ---> 5 --->9
+//          head   preslow  slow        fast
+
+//          1 ---> 2 ---> 3
+//      preSlow   slow   fast  
+// 用双指针法找到链表的中间部位，以 slow.val构建一个node，将链表拆分为左右两部分，递归调用自己获取该node的left和right结点，最终返回该node。
