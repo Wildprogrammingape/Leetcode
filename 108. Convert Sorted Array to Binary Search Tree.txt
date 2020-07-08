@@ -1,0 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if (nums.length == 0)  return null;
+        return constructTreeFromArray(nums, 0, nums.length-1);
+    }
+    
+    public TreeNode constructTreeFromArray(int[] nums, int left, int right){
+        // binary search to get the middle
+        
+        if (left > right)  return null;
+        int mid = left + (right - left) / 2;  // get the middle
+        TreeNode node = new TreeNode(nums[mid]);   // construct new node with value "nums[mid]"
+        
+        node.left = constructTreeFromArray(nums, left, mid-1);    // recursive call to build children node
+        node.right = constructTreeFromArray(nums, mid+1, right);
+        
+        return node;
+    }
+    
+}
+
+// 用二分法不断寻找中间点，构建node，递归调用自己构建子节点， 最终返回该node。
