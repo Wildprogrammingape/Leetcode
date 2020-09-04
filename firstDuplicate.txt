@@ -1,0 +1,15 @@
+int firstDuplicate(int[] a) {
+
+    Set<Integer> hashset = new HashSet<>();
+    
+    for (int n : a){
+        if (hashset.contains(n)) {
+            return n;
+        }
+        else{
+            hashset.add(n);
+        }
+    }
+    
+    return -1;
+}
