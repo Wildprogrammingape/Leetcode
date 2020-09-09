@@ -1,0 +1,52 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        
+        // decrement this to current + 2Sum problem
+        // sort the array firstly, then use Two-Pointer method to find complement
+        
+        List<List<Integer>> list = new ArrayList<>();
+        
+        Arrays.sort(nums);  // [-4, -1, -1, 0, 1, 2]
+        
+        for (int i=0; i<nums.length-2; i++){
+            
+            if (i>0 && nums[i] == nums[i-1]){ // avoid duplicates for first num
+                 continue;
+            }
+            
+            int low = i+1;          // two pointer 
+            int high = nums.length-1;
+            int complement = 0 - nums[i];
+            
+            while (low < high){
+                if (nums[low] + nums[high] == complement){
+                    list.add(Arrays.asList(nums[i], nums[low], nums[high])); // find result
+                    
+                    while(low<high && nums[low] == nums[low+1]){//duplicates for second num
+                        low++;
+                    }
+                    while(low<high && nums[high] == nums[high-1]){//duplicates for third num
+                        high--;
+                    }            
+                    low++;
+                    high--; 
+                }
+                
+                else if(nums[low] + nums[high] > complement){
+                    high--;
+                }
+                
+                else{
+                    low++;
+                }
+                
+            }
+        }
+        
+        return list;
+        
+    }
+}
+
+// Time complexity: O(n*n)  --  Arrays.sort() use quick sort worst case O(n*n)
+// Space complexity: O(n)
