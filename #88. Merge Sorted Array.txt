@@ -1,0 +1,33 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        
+        // 3 Pointer method:
+        // first(current position), second(end of nums1), third(end of nums2)
+        
+        int cur = nums1.length-1;  // last index of nums1
+        int p1 = m - 1;            // valid index of nums1
+        int p2 = n - 1;            // valid index of nums2
+        
+        while(cur >= 0){
+            if (p1 < 0){
+                nums1[cur] = nums2[p2--];
+            }
+            else if (p2 < 0){
+                nums1[cur] = nums1[p1--];
+            }
+            else{
+                if (nums1[p1] > nums2[p2]){
+                    nums1[cur] = nums1[p1--];
+                }
+                else{
+                    nums1[cur] = nums2[p2--];
+                }
+            }
+            
+            cur--;
+        }
+    }
+}
+
+// Time complexity: O(n)
+// Space complexity: O(1)
