@@ -1,0 +1,26 @@
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        
+        // use HashMap, find the complement for every numbers
+        // if there is, return {hashmap.get(complement), i}
+        // if there isn't,  put the number into hashmap
+        
+        Map<Integer, Integer> hashmap = new HashMap<>();
+        
+        for (int i=0; i<numbers.length; i++){
+            int complement = target - numbers[i];
+            if (hashmap.containsKey(complement)){
+                return new int[] {hashmap.get(complement)+1, i+1};
+            }
+            else{
+                hashmap.put(numbers[i], i);
+            }
+        }
+        
+        throw new IllegalArgumentException("No answer returned");
+        
+    }
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
