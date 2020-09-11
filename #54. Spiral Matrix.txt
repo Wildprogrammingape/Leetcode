@@ -1,0 +1,56 @@
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        
+        // Set rowBegin, rowEnd, columnBegin, columnEnd
+        // increment or decrement after once traverse
+        // note: judge if there is exsiting row/column before traversing back
+        
+        List<Integer> result = new ArrayList<>();
+        
+        // corner case
+        if (matrix.length == 0){
+            return result;
+        }
+        
+        // define valid index of row and column
+        int rowBegin = 0;
+        int rowEnd = matrix.length - 1;
+        int columnBegin = 0;
+        int columnEnd = matrix[0].length - 1;
+        
+        while (rowBegin<=rowEnd && columnBegin<=columnEnd){
+
+            // traverse first row
+            for (int i=columnBegin; i<=columnEnd; i++){
+                result.add(matrix[rowBegin][i]);
+            }
+            
+            rowBegin++;
+            
+            // traverse last column
+            for (int i=rowBegin; i<=rowEnd; i++){
+                result.add(matrix[i][columnEnd]);
+            }
+            
+            columnEnd--;
+            
+            // must judge if there is existing row 
+            if (rowBegin<=rowEnd){
+                for (int i=columnEnd; i>=columnBegin; i--){
+                    result.add(matrix[rowEnd][i]);
+                }
+                rowEnd--;
+            }
+            
+            // must judge if there is existing column
+            if (columnBegin<=columnEnd){
+                for (int i=rowEnd; i>=rowBegin; i--){
+                    result.add(matrix[i][columnBegin]);
+                }
+                columnBegin++;
+            }    
+        }
+        
+        return result;
+    }
+}
