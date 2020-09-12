@@ -1,0 +1,57 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        
+        // Tips: sum = l1.val + l2.val + carry
+        // if l1 or l2 is null, see the value as 0
+        // mod 10 to get last digit, / to get carry
+        // remember to check final carry
+        
+        ListNode dummy = new ListNode(0);
+        ListNode l3 = dummy;
+        int carry = 0;
+        
+        while (l1 != null || l2 != null){
+            
+            // see the value as 0 if null
+            int l1_value = (l1 != null) ? l1.val : 0;  
+            int l2_value = (l2 != null) ? l2.val : 0;
+            
+            // calculate sum, last digit, carry
+            int sum = l1_value + l2_value + carry;
+            int last_digit = sum % 10;
+            carry = sum / 10;
+            
+            // now construct new node for l3
+            ListNode node = new ListNode(last_digit);
+            l3.next = node;
+            l3 = l3.next;
+            
+            // move forward l1 and l2 if not null
+            if (l1 != null) l1 = l1.next;
+            if (l2 != null) l2 = l2.next;  
+        }
+        
+        // finally check the final carry
+        if (carry == 1){
+            // need to add last node 
+            ListNode node = new ListNode(1);
+            l3.next = node;
+        }
+        
+        return dummy.next;
+        
+    }
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
