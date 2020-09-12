@@ -1,0 +1,42 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        
+        ListNode fast = head;
+        ListNode slow = head;
+        
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast){
+                return true;
+            }
+        }
+        
+        return false;
+        
+        
+    }
+}
+// Time complexity: O(n)
+// Space complexty: O(1)
+
+// # Note 1:  WHY "while fast and fast.next:"?
+// # if we use .next, we hava to notice None has no next. So "fast.next" is not None, thus "fast" is not None.
+// # let's say 1-2-3-4-5, if fast.next is illegal, fast must be None, so fast is ahead of fast.next
+
+// # Note 2: what if slow goes over fast?
+// # it can be proved: n = m.p (n is the step that fast and slow meet, p is period of cycle, m is integer)
+
+// # Note 3: what about cycle is not the end?
+// # it can't happen, since a node can't have two links. So cycle is always from the tail lol.
