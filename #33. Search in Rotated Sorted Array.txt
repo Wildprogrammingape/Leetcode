@@ -1,0 +1,27 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        
+//         // simple traverse
+//         for (int i=0; i<nums.length; i++){
+//             if (nums[i] == target){
+//                 return i;
+//             }
+//         }
+        
+//         return -1;
+        
+        // hashmap Solution
+        
+        Map<Integer, Integer> hashmap = new HashMap<>();
+        
+        for (int i=0; i<nums.length; i++){
+            hashmap.put(nums[i], i);
+        }
+        
+        if (hashmap.containsKey(target)){
+            return hashmap.get(target);
+        }
+        
+        return -1;
+    }
+}
