@@ -1,0 +1,21 @@
+class Solution {
+    public void rotate(int[] nums, int k) {
+        
+        // Two pointer: change current value with pre
+        
+        
+        for (int i=0; i<k; i++){// loop k times
+            
+            // shift every number to the right
+            int pre = nums[nums.length-1];
+            for (int j=0; j<nums.length; j++){
+                int cur = nums[j];   // store current value 
+                nums[j] = pre;       // change current value with pre
+                pre = cur;           // update pre
+            }
+        }
+        
+    }
+}
+// Time complexity: O(n*k)
+// Space complexity: O(1)
