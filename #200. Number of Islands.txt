@@ -1,0 +1,41 @@
+class Solution {
+    public int numIslands(char[][] grid) {
+        
+        // Typical DFS problem
+        // traverse 2d grid, if 1, call dfs and count++
+        // dfs: set all adjacent 1 to 0
+        
+        int count = 0;
+        
+        for (int i=0; i<grid.length; i++){
+            for (int j=0; j<grid[0].length; j++){
+                if (grid[i][j] == '1'){
+                    count++;
+                    callDFS(i, j, grid);
+                }
+            }
+        }
+        
+        return count;
+    }
+    
+    public void callDFS(int i, int j, char[][] grid){
+        
+        // end case
+        if (i<0 || i>=grid.length || j<0 || j>=grid[0].length || grid[i][j] == '0'){
+            return;
+        }
+        
+        grid[i][j] = '0';   // set 0
+        
+        // recursively judge all adjcent neighbours
+        callDFS(i-1, j, grid);
+        callDFS(i+1, j, grid);
+        callDFS(i, j-1, grid);
+        callDFS(i, j+1, grid);
+        
+    }
+}
+
+// Time complexity: O(n)
+// Space complexity: O(1)
