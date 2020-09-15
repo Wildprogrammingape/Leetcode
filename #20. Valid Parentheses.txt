@@ -1,0 +1,45 @@
+class Solution {
+    public boolean isValid(String s) {
+        
+        // typical stack problem
+        // convert string to charArray in order to loop through every character
+        // for every char, if open braket, push into stack
+        // if close braket, if stack is not empty && have a fit, then pop
+        // else with no fit braket, so return false
+        
+        Stack<Character> stack = new Stack<>();
+        
+        char[] charArray = s.toCharArray();
+        
+        for (char c : charArray){
+            
+            // open bracket
+            if (c == '(' || c == '[' || c == '{'){
+                stack.push(c);
+            }    
+             
+            // fit
+            else if (!stack.isEmpty() && c == ')' && stack.peek() == '('){
+                stack.pop();
+            }
+            
+            else if (!stack.isEmpty() && c == ']' && stack.peek() == '['){
+                stack.pop();
+            }
+            
+            else if (!stack.isEmpty() && c == '}' && stack.peek() == '{'){
+                stack.pop();
+            }
+            
+            // not fit or close bracket
+            else{
+                return false;
+            }      
+        }
+        
+        return stack.isEmpty();
+    }
+}
+
+// Time complexity: O(n)
+// Space complexity: O(n)
