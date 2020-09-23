@@ -1,0 +1,32 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        
+        // typical sliding window problem
+        
+        int a_pointer = 0;
+        int b_pointer = 0;
+        int max_length = 0;
+        
+        Set<Character> hashset = new HashSet<>();
+        
+        if (s == "") return 0;
+        
+        while (b_pointer < s.length()){
+            if (!hashset.contains(s.charAt(b_pointer))){
+                hashset.add(s.charAt(b_pointer));
+                b_pointer++;
+                max_length = Math.max(max_length, hashset.size());
+            }
+            else{
+                hashset.remove(s.charAt(a_pointer));
+                a_pointer++;
+            }         
+        }
+        
+        return max_length;
+        
+    }
+}
+
+// Time : O(n)
+// Space: O(n)
