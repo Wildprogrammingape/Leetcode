@@ -1,0 +1,32 @@
+// Singly-linked lists are already defined with this interface:
+// class ListNode<T> {
+//   ListNode(T x) {
+//     value = x;
+//   }
+//   T value;
+//   ListNode<T> next;
+// }
+//
+ListNode<Integer> removeKFromList(ListNode<Integer> l, int k) {
+    
+    ListNode dummy = new ListNode(0);
+    ListNode cur = dummy;
+    
+    
+    while (l != null){
+        
+        if (l.value == k){
+            cur.next = l.next; // connect
+            l = l.next;        // update l
+        }
+        else{
+            cur.next = l;   
+            l = l.next;
+            cur = cur.next;  
+        }
+        
+    }
+    
+    return dummy.next;
+
+}
