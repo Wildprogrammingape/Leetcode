@@ -1,84 +1,40 @@
-class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
-        # we can create two list called L (left) and R (right) to calculate the product to the left except self, and product to the right except self.
-        # Finally, the product except self means: (to left) * (to right)
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
         
-        # First, create the two lists
-        left = len(nums) * [0]
-        right = len(nums) * [0]
+        // corner case
+        if (nums == null)  return null;
         
-        # formulate "to left" list
-        # there is no left value on the first number in nums, set as 1
-        left[0] = 1
+        int leftPro = 1, rightPro = 1;
+        int n = nums.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        left[0] = 1;
+        right[n-1] = 1;
         
-        for i in range(1,len(nums)):
-            left[i] = left[i-1] * nums[i-1]
+        int[] result = new int[n];
         
+        // left max array
+        for (int i=1; i<n; i++){
+            leftPro *= nums[i-1] ;
+            left[i] = leftPro;
+        }
         
-        # formulate "to right" list
-        # there is no right value on the final number in nums, set as 1
-        right[len(nums)-1] = 1
-        for i in range(len(nums)-2,-1,-1):
-            right[i] = right[i+1] * nums[i+1]
+        // right max array
+        for (int i=n-2; i>=0; i--){
+            rightPro *= nums[i+1];
+            right[i] = rightPro;
+        }
         
-        # finally, multiple left and right to get the result
-        # note:  list = [], list[0] = 1 --  Index out of range !
-        result = []
-        for i in range(0,len(nums)):
-            result.append(left[i] * right[i])
-            
-        return result
+        // calculate final result
+        for (int i=0; i<n; i++){
+            result[i] = left[i] * right[i];
+        }
         
-        
-        
-#         length = len(nums)
-        
-#         L, R, result = [0]*length, [0]*length, [0]*length
-        
-#         L[0] = 1
-#         for i in range(1,length):
-#             L[i] = nums[i-1] * L[i-1]
-        
-#         R[length - 1] = 1
-#         for i in range(length-2,-1,-1):
-#             R[i] = nums[i+1] * R[i+1]
-            
-#         for i in range(0,length):
-#             result[i] = L[i] * R[i]
-            
-#         return result
-        
-        
-        '''
-        # type(1/1) -- float
-        
-        if not nums:
-            return []
-        
-        all_product = 1
-        for i in nums:
-            all_product = all_product * i
-        result = []     
-        # edge case
-        if all_product == 0:
-            for num in nums:
-                temp = nums
-                temp.remove(num)
-                result.append(self.all_value_product(temp))
-            return result
-        
-        
-            
-        for item in nums:
-            result.append(int(all_product / item))   # case : item = 0
-        
-        return result
-    
-    # helper function to accelerate all product in temp list
-    def all_value_product(self, l):
-        product = 1
-        for n in l:
-            product = product * n
-                
-        return product
-        '''
+        return result;
+    }
+}
+// time: O(n)
+// space: O(n)
+
+// [1,1,2,6]
+// [24,12,4,1]
