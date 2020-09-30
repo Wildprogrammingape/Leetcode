@@ -1,0 +1,39 @@
+class Solution {
+    public int trap(int[] height) {
+        
+        // corner case
+        if (height.length == 0) return 0;
+        
+        
+        int leftMax = 0, rightMax = 0;
+        int n = height.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        int result = 0;
+        
+        // left max array
+        for (int i=1; i<n; i++){
+            leftMax = Math.max(leftMax, height[i-1]);
+            left[i] = leftMax;
+        }
+        
+        // right max array
+        for (int i=n-2; i>=0; i--){
+            rightMax = Math.max(rightMax, height[i+1]);
+            right[i] = rightMax;
+        }
+        
+        // calculate min(left,right) - height[i], but must larger than 0
+        for (int i=0; i<n; i++){
+            result += Math.max(0, Math.min(left[i], right[i]) - height[i]);
+        }
+        
+        return result;
+    }
+}
+
+// time: O(n)
+// space: O(n)
+
+// 计算两个数组: left为当前值往左的最大值，right为当前值往右的最大值
+// 于是积水量为 min(当前往左最大，当前往右最大) - current height
