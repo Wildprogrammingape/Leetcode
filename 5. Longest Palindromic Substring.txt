@@ -1,0 +1,47 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        // two pointer method
+        
+        int start = 0;    // store longest palindrome substring
+        int end = 0;
+
+        for (int i=0; i<s.length(); i++){  // iterate every character in string s
+            int left = i;  // store current index, expand towards both sides
+            int right = i;
+            char c = s.charAt(i);  // store current character
+            
+            // move left and right once, expand when duplicates
+            while (left >= 0 && s.charAt(left) == c){
+                left--;
+            }
+            while (right <= s.length() - 1 && s.charAt(right) == c){
+                right++;
+            }
+            
+            // expand when palindrome
+            while (left >= 0 && right <= s.length() - 1 && s.charAt(left) == s.charAt(right)){
+                left--;
+                right++;
+            }
+            
+            // update (start, end) with longest palindrome substring 
+            // now s.substring(left+1, right) is the result
+            left = left + 1;
+            if (right - left > end - start){  // update longest index
+                start = left;
+                end = right;
+            }
+        }
+        
+        return s.substring(start, end);
+    }
+}
+// time complexity: O(n*n)
+// space complexity: O(1)
+
+
+// "racecar"
+
+//用双指针left, right 找到当前字符往两边的最大palindromic string
+// start, end 存储最大字符串的起始Index
+// 最终返回 s.substring(start, end)
