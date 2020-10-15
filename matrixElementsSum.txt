@@ -1,0 +1,37 @@
+int matrixElementsSum(int[][] matrix) {
+    // iterate from double for loop (column  -- row)
+    // since we need to drop all below column elements if necessary
+    // brilliant!!!
+    int sum = 0;
+    for (int c=0; c<matrix[0].length; c++){
+        for (int r=0; r<matrix.length; r++){
+            // if matrix[r][c] != 0, add it, otherwise break the second loop to drop whole column
+            if (matrix[r][c] != 0){
+                sum += matrix[r][c];
+            }
+            else{
+                break;   // drop all elements below, jump to next column
+            }
+        }
+    }
+    return sum; 
+}
+// time complexity: O(m*n)
+// space complexity: O(1)
+
+// My idea is to use dfs to set all elements below 0 to 0
+// and finally add all elements together to get the result
+// dfs too complex
+
+// void dfs(int[][] matrix, int i, int j){
+    
+//     if (i<0 || i>=matrix.length || j<0 || j>=matrix[0].length){
+//         return;
+//     }
+//     if (matrix[i][j] != 0){
+//         return;
+//     }
+//     matrix[i][j] = 0;  // set current position to 0
+//     // determine the below matrix
+//     dfs(matrix, i-1, j);
+// }
