@@ -1,0 +1,34 @@
+int makeArrayConsecutive2(int[] statues) {
+    
+    if (statues.length<1) return 0;
+    
+    // put into hashset
+    // check each element whether in this map 2,3,4,5,6,7,8 -- 3
+    // Map<Integer> hashmap = new HashMap<>();  -- * hashmap must has two arguments
+    
+    Set<Integer> hashset = new HashSet<>();
+    
+    for (int n : statues){
+        hashset.add(n);
+    }
+    
+    // check from first to last
+    Arrays.sort(statues);
+    int min = statues[0];
+    int max = statues[statues.length-1];
+    int result = 0;
+    for (int i=min; i<max; i++){
+        if (hashset.contains(i)){
+            continue;
+        }
+        else{
+            result++;
+        }
+    }
+    
+    return result;
+}
+// time O(nlogn)
+// space O(n)
+
+// work in place, so it does not require any additional storage.
