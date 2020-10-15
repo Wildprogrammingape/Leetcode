@@ -1,0 +1,34 @@
+boolean almostIncreasingSequence(int[] sequence) {
+    if (sequence.length <= 2) return true;
+    for (int k=0; k<sequence.length; k++){
+        if (checkNewArray(sequence, k) == true){
+            return true;
+        }
+        else{
+            continue;
+        }
+    }
+    return false;
+}
+boolean checkNewArray(int[] inputArray, int skip){
+    int[] array = new int[inputArray.length-1];
+    int n = 0;
+    for (int i=0; i<inputArray.length; i++){
+        if (i == skip){
+            continue;
+        } 
+        else{
+            array[n] = inputArray[i];
+            n++;
+        }
+    }
+    for (int i=1; i<array.length; i++){
+        if (array[i] <= array[i-1]){
+            return false;
+        }
+    }
+    return true;
+}
+// time complexity: O(n*n)
+// space complexity: O(n*n)
+// time limit exceeded a little bit
