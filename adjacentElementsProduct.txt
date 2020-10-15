@@ -1,0 +1,16 @@
+int adjacentElementsProduct(int[] inputArray) {
+    
+    // corner case
+    if (inputArray == null) return 0;
+    if (inputArray.length==1) return inputArray[0];
+    
+    int maxProduct = inputArray[0]*inputArray[1];
+    for (int i=0; i<inputArray.length-1; i++){
+        maxProduct = Math.max(maxProduct, inputArray[i]*inputArray[i+1]);
+    }
+    
+    return maxProduct;
+
+}
+// time complexity: O(n)
+// space complexity: O(1)
