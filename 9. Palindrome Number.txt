@@ -1,18 +1,35 @@
-class Solution(object):
-    def isPalindrome(self, x):
-        """
-        :type x: int
-        :rtype: bool
-        """
-        if x ==0:
-            return True
-        
-        if x<0:
-            return False
-        
-        x=str(x)
-        
-        if x==x[::-1]:
-            return True
-        else:
-            return False
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function(x) {
+//     // convert to stringArray
+//     const stringArr = x.toString().split('');
+//     // check if first and last element match
+//     while (stringArr.length >= 2){
+//         if (stringArr.shift() !== stringArr.pop()){
+//             return false;
+//         }
+//     }
+    
+//     return true;
+    // all negative numbers are not palindrome
+    if (x < 0){
+        return false;
+    }
+    // reverse input number and check
+    if (x === reverseNumber(x)){
+        return true;
+    }
+    
+    return false;
+};
+
+const reverseNumber = function(x){
+    let result = 0;
+    while (x){
+        result = x % 10 + result * 10;
+        x = Math.floor(x / 10);
+    }
+    return result;
+}
