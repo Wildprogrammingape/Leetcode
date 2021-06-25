@@ -1,0 +1,37 @@
+var addStrings = function(num1, num2) {
+    // 通过charAt() - '0' 获取 整数digit
+    // digitSum = digit1 + digit2 + carry
+    // sum = `${digitSum % 10}${sum}` 如 `34`将上次循环的digit放在字符串最后即可
+    
+    // Input: num1 = "11", num2 = "123"
+    // Output: "134"
+    
+    // 双指针方式
+    let i = num1.length - 1;
+    let j = num2.length - 1;
+    let carry = 0;
+    let result = '';
+    
+    while(i>=0 || j>=0 || carry >0){
+        const digit1 = (i<0) ? 0 : num1.charAt(i) - '0';    // 第一个字符串的最后数值
+        const digit2 = (j<0) ? 0 : num2.charAt(j) - '0';    // 第二个字符串的最后数值
+        const digitSum  = digit1 + digit2 + carry;          // 算上进位的数值之和
+        
+        carry = Math.floor(digitSum / 10);                  // 得到进位
+        
+        result = `${digitSum % 10}${result}`;               // 更新result字符串
+        
+        
+        i--;
+        j--;
+    }
+    
+    return result;
+    
+};
+
+
+
+
+
+// console.log(''.length)   -- 0  空字符串长度为0
