@@ -1,0 +1,14 @@
+var sortedSquares = function(nums) {
+    // 使用 array.map()返回新数组
+    // 使用 array.sort((a,b) => a - b)进行排序
+    
+    const newArray = nums.map((num, index) => {
+        return num*num;
+    });
+    
+    const sortedArray = newArray.sort((a, b) => a - b);
+    
+    return sortedArray;
+    
+    
+};
