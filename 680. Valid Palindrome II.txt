@@ -1,0 +1,17 @@
+var validPalindrome = function(s) {
+    
+    // 370 / 466 test cases passed 超时
+    
+    if (s.length <= 2){
+        return true;
+    }
+    // substring(start, end) 取子字符串从start到end，但不包括end
+    // 'aba'
+    for (let i=0; i<s.length; i++){
+        const subString = s.substring(0, i) + s.substring(i+1, s.length);
+        if (subString === subString.split('').reverse().join('')){
+            return true;
+        }
+    }
+    return false;
+};
