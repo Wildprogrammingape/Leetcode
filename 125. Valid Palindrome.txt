@@ -1,0 +1,32 @@
+var isPalindrome = function(s) {
+    // 用replace()函数和正则表达式将 非小写字母元素 转换为 空字符 ''
+    // split()和join()函数都返回新数据，不影响原数据
+    
+    let newString = s.toLowerCase().replace(/[^a-z\d]/g, '');
+    
+    // solution one (拆分重组字符串)
+    // return newString === newString.split('').reverse().join('');
+    
+    // solution two (双指针)
+    
+    for(let i = 0, j = newString.length - 1; i<j; i++, j--){
+        if (newString[i] !== newString[j]){
+            return false;
+        }
+    } 
+    
+    return true;
+    
+    
+    
+    // newString = "amanaplanacanalpanama"
+        
+    // newString.split('') = ['a', 'm', 'a', 'n' ...]
+    
+    // console.log(newString.split(''));
+    // console.log(newString.split('').reverse());
+    // console.log(newString.split('').reverse().join(''));
+    // console.log(newString);
+    
+    
+};
