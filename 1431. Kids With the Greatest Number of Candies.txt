@@ -1,0 +1,32 @@
+/**
+ * @param {number[]} candies
+ * @param {number} extraCandies
+ * @return {boolean[]}
+ */
+var kidsWithCandies = function(candies, extraCandies) {
+    // keep original arr
+    const origin = [];
+    candies.forEach(num => origin.push(num));
+     
+    // sort accending
+    candies.sort((a,b) => a - b);
+    
+    // get maximum number
+    const max = candies[candies.length - 1];
+    
+    const booleanArr = [];
+    
+    for (let i=0; i<origin.length; i++){
+        if (origin[i] + extraCandies >= max){
+            booleanArr.push(true);
+        }
+        else{
+            booleanArr.push(false); 
+        }
+        
+    }
+    
+    return booleanArr;
+    
+    
+};
