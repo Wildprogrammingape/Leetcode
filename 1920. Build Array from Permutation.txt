@@ -1,0 +1,38 @@
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var buildArray = function(nums) {
+    // Solution one (space complexity O(1))
+    // const result = [];
+    // for (let i=0; i<nums.length; i++){
+    //     // result[i] = nums[nums[i]];
+    //     result.push(nums[nums[i]]);
+    // }
+    // return result;
+    
+    // Solution two (forEach())
+    // 不影响原数组
+    
+    // const result = [];
+    // nums.forEach((num, index) => {
+    //     result.push(nums[nums[index]]);
+    // })
+    // return result;
+    
+    
+    // Solution three (map())
+    // 创建新数组，不影响原数组
+    
+    const result = nums.map((num, index) => {
+        return nums[nums[index]];
+    })
+    return result;
+    
+    
+    // one line:
+    // return nums.map((n) => nums[n]);
+    // return nums.map((n,i) => nums[nums[i]]);
+    
+    
+};
