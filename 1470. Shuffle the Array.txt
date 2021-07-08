@@ -1,0 +1,19 @@
+/**
+ * @param {number[]} nums
+ * @param {number} n
+ * @return {number[]}
+ */
+var shuffle = function(nums, n) {
+    // two pointer
+    let i = 0;
+    let j = n;
+    
+    const result = [];
+    
+    for (; i<n , j<nums.length; i++, j++){
+        result.push(nums[i]);
+        result.push(nums[j]);
+    }
+    
+    return result;
+};
