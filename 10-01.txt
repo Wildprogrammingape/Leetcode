@@ -1,1 +1,0 @@
-Last Friday I was working on the implementation of translator plugin and I also refactored the code to make the synchronizing cursor feature only exposed on specific roles. Today I am gonna continue implementing the translator on individual website contents. That's it for me.
